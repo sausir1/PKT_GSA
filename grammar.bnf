@@ -1,0 +1,54 @@
+
+<digit> ::= 0 | <non zero digit>
+
+<type> ::= char | integer | string | boolean
+<char> ::= <input character> except ' and \ ' 
+<null> ::= null
+<integer> ::= <digit> | <integer> <digit>
+<string> ::= <char> | <string> <char>
+<boolean> ::= true | false
+<array> ::= <type>[<integer>]
+<keyword> ::= char | integer | string | boolean | for | if 
+<sign> ::= + | -
+
+
+<expression> ::= <expression> + <term>
+            | 	<expression> - <term>
+            |	<term>
+<term> ::= <term> * <factor>
+            |	<term> / <factor>
+            | 	<factor>
+
+<predecrement expression> ::= -- <expression>
+
+<preincrement expression> ::= ++ <expression>
+
+<postdecrement expression> ::= <expression> --
+
+<postincrement expression> ::= <expression> ++
+
+<statement> ::=  <assignment> 
+            | <if then statement> 
+            | <if then else statement> 
+            | <while statement> 
+            | <for statement>
+
+<statement expression> ::= <assignment> 
+            | <preincrement expression> 
+            | <postincrement expression> 
+            | <predecrement expression> 
+            | <postdecrement expression> 
+
+<local variable declaration> ::= <type> <variable>
+<local variable declaration statement> ::= <local variable declaration> ;
+
+<if then statement>::= if ( <expression> ) <statement>
+
+<if then else statement>::= if ( <expression> ) else <statement>
+
+<for loop> ::= ( <expression> 'to' <integer> ) <statement> 
+            | ( <expression> 'until' <integer>) <statement>
+            
+<block statement> ::= <local variable declaration statement> | <statement>
+<block statements> ::= <block statement> | <block statements> <block statement>
+<block> ::= { <block statements>?}
