@@ -20,6 +20,7 @@ public class ExpressionProcessor extends Expression{
             if(e instanceof VariableDeclaration){
                 VariableDeclaration decl = (VariableDeclaration) e;
                 vals.put(decl.id, decl.val);
+                results.add(decl.id + " is " + decl.val);
             } else {
                 //visiems kitiems atvejams
                 String input = e.toString();

@@ -66,7 +66,7 @@ public class AntlrToExpression extends GsaGrammarBaseVisitor<Expression> {
 
         String id = ctx.getChild(0).getText();
         if(!vars.contains(id)){
-            semanticErrors.add("Error. variable " +id+" is not declared");
+            semanticErrors.add("Error. variable " +id+" is not declared ("+line+","+col+")");
         }
         return new Variable(id);
 
