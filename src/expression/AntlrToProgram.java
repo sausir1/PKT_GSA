@@ -15,12 +15,9 @@ public class AntlrToProgram extends GsaGrammarBaseVisitor<Program> {
         Program prog = new Program();
         semanticErrors = new ArrayList<String>();
         AntlrToExpression exprVisitor = new AntlrToExpression(semanticErrors);
-        for(int i=0;i<ctx.getChildCount(); i++){
-            if (i == ctx.getChildCount()-1) {
-                //paskutinis vaikas yra EOF(end of file)
-            } else {
+        int n = ctx.getChildCount();
+        for(int i=0;i<n-1; i++){
                 prog.addExpressions(exprVisitor.visit(ctx.getChild(i)));
-            }
         }
         return prog;
     }

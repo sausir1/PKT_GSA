@@ -19,8 +19,6 @@ public class Gsa {
         {
             String file = args[0];
             GsaGrammarParser parser = getParser(file);
-            //reikia padaryti parse tree
-
             ParseTree antlrAST = parser.prog();
 
             if(SyntaxErrorListener.hasErrors){

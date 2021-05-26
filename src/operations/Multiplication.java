@@ -1,4 +1,6 @@
-package expression;
+package operations;
+
+import expression.Expression;
 
 public class Multiplication extends Expression {
     Expression left;
@@ -9,8 +11,11 @@ public class Multiplication extends Expression {
         this.right = right;
     }
 
+    public Expression getLeft(){ return left; }
+    public Expression getRight(){ return right; }
+
     @Override
     public String toString(){
-        return left.toString() + '*' + right.toString();
+        return left.toString() + " * " + right.toString();
     }
 }

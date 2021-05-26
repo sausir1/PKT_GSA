@@ -1,8 +1,13 @@
-package expression;
+package operations;
 
-public class Addition extends Expression{
+import expression.Expression;
+
+public class Addition extends Expression {
     Expression left;
     Expression right;
+
+    public Expression getLeft(){ return left; }
+    public Expression getRight(){ return right; }
 
     public Addition(Expression left, Expression right){
         this.left = left;
