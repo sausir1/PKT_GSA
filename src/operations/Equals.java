@@ -2,7 +2,7 @@ package operations;
 
 import expression.Expression;
 
-public class Equals {
+public class Equals extends Expression{
     Expression left;
     Expression right;
 

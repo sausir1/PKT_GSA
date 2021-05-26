@@ -6,6 +6,11 @@ import operations.Addition;
 import operations.Division;
 import operations.Multiplication;
 import operations.Subtraction;
+import operations.Equals;
+import operations.EqualsOrGreaterThan;
+import operations.EqualsOrLessThan;
+import operations.GreaterThan;
+import operations.LessThan;
 import org.antlr.v4.runtime.Token;
 import types.Number;
 
@@ -21,10 +26,10 @@ public class AntlrToExpression extends GsaGrammarBaseVisitor<Expression> {
     }
 
     /*
-    * Kai aplankyti visi visit metodai
-    * galima suprast, kad kintamieji sudeti tokia tvarka,
-    *  kokia buvo iskviesti ir metodai
-    **/
+     * Kai aplankyti visi visit metodai
+     * galima suprast, kad kintamieji sudeti tokia tvarka,
+     *  kokia buvo iskviesti ir metodai
+     **/
     private List<String> vars; // susideti visiems kintamiesiems paskelbtus programoje
 
     //Klaidoms talpinti
@@ -151,12 +156,16 @@ public class AntlrToExpression extends GsaGrammarBaseVisitor<Expression> {
 
     @Override
     public Expression visitEqualsOrGreaterThan(EqualsOrGreaterThanContext ctx) {
-        return super.visitEqualsOrGreaterThan(ctx);
+        Expression left = visit(ctx.getChild(0));
+        Expression right = visit(ctx.getChild(2));
+        return new EqualsOrGreaterThan(left,right);
     }
 
     @Override
     public Expression visitEquals(EqualsContext ctx) {
-        return super.visitEquals(ctx);
+        Expression left = visit(ctx.getChild(0));
+        Expression right = visit(ctx.getChild(2));
+        return new Equals(left,right);
     }
 
     @Override
@@ -178,17 +187,23 @@ public class AntlrToExpression extends GsaGrammarBaseVisitor<Expression> {
 
     @Override
     public Expression visitGreaterThan(GreaterThanContext ctx) {
-        return super.visitGreaterThan(ctx);
+        Expression left = visit(ctx.getChild(0));
+        Expression right = visit(ctx.getChild(2));
+        return new GreaterThan(left,right);
     }
 
     @Override
     public Expression visitLessThan(LessThanContext ctx) {
-        return super.visitLessThan(ctx);
+        Expression left = visit(ctx.getChild(0));
+        Expression right = visit(ctx.getChild(2));
+        return new LessThan(left,right);
     }
 
     @Override
     public Expression visitEqualsOrLessThan(EqualsOrLessThanContext ctx) {
-        return super.visitEqualsOrLessThan(ctx);
+        Expression left = visit(ctx.getChild(0));
+        Expression right = visit(ctx.getChild(2));
+        return new EqualsOrLessThan(left,right);
     }
 
     @Override
@@ -197,4 +212,5 @@ public class AntlrToExpression extends GsaGrammarBaseVisitor<Expression> {
         int num = Integer.parseInt(numText);
         return new Number(num);
     }
+
 }

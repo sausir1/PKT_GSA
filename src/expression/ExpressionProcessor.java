@@ -1,9 +1,6 @@
 package expression;
 
-import operations.Addition;
-import operations.Division;
-import operations.Multiplication;
-import operations.Subtraction;
+import operations.*;
 import types.Bool;
 import types.Char;
 import types.Number;
@@ -58,7 +55,12 @@ public class ExpressionProcessor extends Expression{
                 //visiems kitiems atvejams
                 String input = e.toString();
                 int res = getResultOf(e);
-                results.add(input + " = " + res);
+                if(res == 0){ // GetResultOf metode jeigu neiskviecia funkcijos, kvies GetREsultOfBool funkcija
+                    boolean res2 = getResultOfBool(e);
+                    results.add(input + " = " + res2);
+                }else {
+                    results.add(input + " = " + res);
+                }
             }
         }
         return results;
@@ -105,8 +107,110 @@ public class ExpressionProcessor extends Expression{
             int right = getResultOf(subt.getRight());
             result = left - right;
         }
-        else if (e instanceof Subtraction){
+//        else if (e instanceof Equals){
+//            Equals eq = (Equals) e;
+//            int left = getResultOf(eq.getLeft());
+//            int right = getResultOf(eq.getRight());
+//            if(left == right){
+//                result = 1;
+//            }else{
+//                result = 0;
+//            }
+//        }
+//        else if (e instanceof EqualsOrGreaterThan){
+//            EqualsOrGreaterThan eq = (EqualsOrGreaterThan) e;
+//            int left = getResultOf(eq.getLeft());
+//            int right = getResultOf(eq.getRight());
+//            if(left >= right){
+//                result = 1;
+//            }else{
+//                result = 0;
+//            }
+//        }
+//        else if (e instanceof EqualsOrLessThan){
+//            EqualsOrLessThan eq = (EqualsOrLessThan) e;
+//            int left = getResultOf(eq.getLeft());
+//            int right = getResultOf(eq.getRight());
+//            if(left <= right){
+//                result = 1;
+//            }else{
+//                result = 0;
+//            }
+//        }
+//        else if (e instanceof GreaterThan){
+//            GreaterThan eq = (GreaterThan) e;
+//            int left = getResultOf(eq.getLeft());
+//            int right = getResultOf(eq.getRight());
+//            if(left > right){
+//                result = 1;
+//            }else{
+//                result = 0;
+//            }
+//        }
+//        else if (e instanceof LessThan){
+//            LessThan eq = (LessThan) e;
+//            int left = getResultOf(eq.getLeft());
+//            int right = getResultOf(eq.getRight());
+//            if(left < right){
+//                result = 1;
+//            }else{
+//                result = 0;
+//            }
+//        }
+        return result;
+    }
 
+    private boolean getResultOfBool(Expression e){
+        boolean result = false;
+        if (e instanceof Equals){
+            Equals eq = (Equals) e;
+            int left = getResultOf(eq.getLeft());
+            int right = getResultOf(eq.getRight());
+            if(left == right){
+                result = true;
+            }else{
+                result = false;
+            }
+        }
+        else if (e instanceof EqualsOrGreaterThan){
+            EqualsOrGreaterThan eq = (EqualsOrGreaterThan) e;
+            int left = getResultOf(eq.getLeft());
+            int right = getResultOf(eq.getRight());
+            if(left >= right){
+                result = true;
+            }else{
+                result = false;
+            }
+        }
+        else if (e instanceof EqualsOrLessThan){
+            EqualsOrLessThan eq = (EqualsOrLessThan) e;
+            int left = getResultOf(eq.getLeft());
+            int right = getResultOf(eq.getRight());
+            if(left <= right){
+                result = true;
+            }else{
+                result = false;
+            }
+        }
+        else if (e instanceof GreaterThan){
+            GreaterThan eq = (GreaterThan) e;
+            int left = getResultOf(eq.getLeft());
+            int right = getResultOf(eq.getRight());
+            if(left > right){
+                result = true;
+            }else{
+                result = false;
+            }
+        }
+        else if (e instanceof LessThan){
+            LessThan eq = (LessThan) e;
+            int left = getResultOf(eq.getLeft());
+            int right = getResultOf(eq.getRight());
+            if(left < right){
+                result = true;
+            }else{
+                result = false;
+            }
         }
         return result;
     }

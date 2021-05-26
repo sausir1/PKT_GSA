@@ -2,7 +2,7 @@ package operations;
 
 import expression.Expression;
 
-public class EqualsOrLessThan {
+public class EqualsOrLessThan extends Expression{
     Expression left;
     Expression right;
 
