@@ -3,17 +3,17 @@ package operations;
 import expression.Expression;
 
 public class Iteration extends Expression{
-    Expression left;
+    Expression iteration;
 
 
-    public Expression getLeft(){ return left; }
+    public Expression getIteration(){ return iteration; }
 
-    public Iteration(Expression left){
-        this.left = left;
+    public Iteration(Expression iter){
+        this.iteration = iter;
     }
 
     @Override
     public String toString(){
-        return left.toString();
+        return iteration.toString();
     }
 }

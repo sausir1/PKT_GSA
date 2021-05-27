@@ -4,13 +4,17 @@ import antlr.GsaGrammarBaseVisitor;
 import antlr.GsaGrammarParser.*;
 import operations.*;
 import org.antlr.v4.runtime.Token;
+import sun.security.util.ArrayUtil;
 import types.Number;
 
+import java.sql.Array;
 import java.util.ArrayList;
 import java.util.List;
 
 
 public class AntlrToExpression extends GsaGrammarBaseVisitor<Expression> {
+
+    public ExpressionProcessor ep = new ExpressionProcessor();
 
     public AntlrToExpression(List<String> semanticErrors){
         vars = new ArrayList<>();
@@ -103,8 +107,11 @@ public class AntlrToExpression extends GsaGrammarBaseVisitor<Expression> {
     public Expression visitIntDeclaration(IntDeclarationContext ctx) {
         String id = checkIfExists(ctx);
         String type = ctx.getChild(0).getText();
-        String val = ctx.getChild(3).getText();
-        return new VariableDeclaration(id, Types.INT,val);
+        ExpressionProcessor ep = new ExpressionProcessor();
+        Expression val = visit(ctx.getChild(3));
+        int rez = ep.getResultOf(val);
+        String value = String.valueOf(rez);
+        return new VariableDeclaration(id, Types.INT,value);
     }
 
     @Override
@@ -138,12 +145,6 @@ public class AntlrToExpression extends GsaGrammarBaseVisitor<Expression> {
             semanticErrors.add("Error. variable " +id+" is not declared ("+line+","+col+")");
         }
         return new Variable(id);
-    }
-
-
-    @Override
-    public Expression visitAssignment(AssignmentContext ctx) {
-        return super.visitAssignment(ctx);
     }
 
     @Override
@@ -184,14 +185,13 @@ public class AntlrToExpression extends GsaGrammarBaseVisitor<Expression> {
 
     @Override
     public Expression visitCondition(ConditionContext ctx) {
-        int n = ctx.conditionalStatement().getChildCount();
-        List<Expression> expressions = new ArrayList<>();
-        for(int i = 0; i < ctx.conditionalStatement().getChildCount();i++) // yra ne tik if bet ir else
-        {
-            Expression statement = visit(ctx.conditionalStatement().getChild(0));
-            expressions.add(statement);
-        }
-        return new Condition(expressions);
+//        int n = ctx.conditionalStatement().getChildCount();
+//
+//        for(int i = 0; i< n; i++)
+//        {
+//            Expression e = visit(ctx.getChild());
+//        }
+        return super.visitCondition(ctx);
     }
 
     @Override
@@ -201,13 +201,14 @@ public class AntlrToExpression extends GsaGrammarBaseVisitor<Expression> {
 
     @Override
     public Expression visitConditionBlock(ConditionBlockContext ctx) {
-        Expression e = visit(ctx.expr());
+
+        Expression e = visitGreaterThan((GreaterThanContext) ctx.expr() );
         return new ConditionBlock(e);
     }
 
     @Override
     public Expression visitIfStatement(IfStatementContext ctx) {
-        Expression condition = visit(ctx.conditionBlock());
+        Expression condition = visit(ctx.getChild(1));
         Expression body = visit(ctx.ifBody());
         return new IfStatement(condition, body);
     }
@@ -265,7 +266,7 @@ public class AntlrToExpression extends GsaGrammarBaseVisitor<Expression> {
     public Expression visitIteration(IterationContext ctx) {
         Expression e = visit(ctx.getChild(0));
 
-        return new Iteration(e);
+        return new Iteration(e).getIteration();
     }
 
     @Override
@@ -285,7 +286,44 @@ public class AntlrToExpression extends GsaGrammarBaseVisitor<Expression> {
         int end = Integer.parseInt(ctx.getChild(4).getText());
         Expression e = visit(ctx.getChild(7));
 
+        return new ForTo(start,end,e);
+    }
 
-        return super.visitForToStatement(ctx);
+    @Override
+    public Expression visitAssignment(AssignmentContext ctx) {
+        if(!vars.contains(ctx.getChild(0).getText())){
+            semanticErrors.add("ERROR ASSIGNING A VARIABLE");
+        }
+        Expression value = visit(ctx.getChild(2));
+        ExpressionProcessor ep = new ExpressionProcessor();
+        int val = ep.getResultOf(value);
+        String ats = String.valueOf(val);
+        return new VariableDeclaration(ctx.getChild(0).getText(), Types.INT,ats);
+    }
+
+    @Override
+    public Expression visitSingleArg(SingleArgContext ctx) {
+
+        return super.visitSingleArg(ctx);
+    }
+
+    @Override
+    public Expression visitMultipleArguments(MultipleArgumentsContext ctx) {
+
+        return super.visitMultipleArguments(ctx);
+    }
+
+    @Override
+    public Expression visitMethodDefinition(MethodDefinitionContext ctx) {
+        Expression e = visit(ctx.getChild(0));
+        return super.visitMethodDefinition(ctx);
+    }
+
+    @Override
+    public Expression visitMethodArguments(MethodArgumentsContext ctx) {
+        if(ctx.getChildCount() > 2){
+            Expression e = visit(ctx.getChild(1));
+        }
+        return super.visitMethodArguments(ctx);
     }
 }
