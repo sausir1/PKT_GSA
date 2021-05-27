@@ -239,7 +239,9 @@ public class GsaGrammarParser extends Parser {
 		public TerminalNode INT() { return getToken(GsaGrammarParser.INT, 0); }
 		public TerminalNode ID() { return getToken(GsaGrammarParser.ID, 0); }
 		public TerminalNode ASSIGN() { return getToken(GsaGrammarParser.ASSIGN, 0); }
-		public TerminalNode NUM() { return getToken(GsaGrammarParser.NUM, 0); }
+		public ExprContext expr() {
+			return getRuleContext(ExprContext.class,0);
+		}
 		public IntDeclarationContext(DeclContext ctx) { copyFrom(ctx); }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
@@ -355,7 +357,7 @@ public class GsaGrammarParser extends Parser {
 				setState(56);
 				match(ASSIGN);
 				setState(57);
-				match(NUM);
+				expr(0);
 				}
 				break;
 			case STRING:
@@ -2821,7 +2823,7 @@ public class GsaGrammarParser extends Parser {
 		"\3\2\2\2*\u010a\3\2\2\2,\u010d\3\2\2\2.\63\5\4\3\2/\63\5\6\4\2\60\63\5"+
 		"\b\5\2\61\63\5,\27\2\62.\3\2\2\2\62/\3\2\2\2\62\60\3\2\2\2\62\61\3\2\2"+
 		"\2\63\64\3\2\2\2\64\62\3\2\2\2\64\65\3\2\2\2\65\66\3\2\2\2\66\67\7\2\2"+
-		"\3\67\3\3\2\2\289\7\4\2\29:\7\"\2\2:;\7\3\2\2;L\7\t\2\2<=\7\5\2\2=>\7"+
+		"\3\67\3\3\2\2\289\7\4\2\29:\7\"\2\2:;\7\3\2\2;L\5\6\4\2<=\7\5\2\2=>\7"+
 		"\"\2\2>?\7\3\2\2?L\7\n\2\2@A\7\6\2\2AB\7\"\2\2BC\7\3\2\2CL\7\f\2\2DE\7"+
 		"\7\2\2EF\7\"\2\2FG\7\3\2\2GL\7\13\2\2HI\7\b\2\2IJ\7\"\2\2JL\5(\25\2K8"+
 		"\3\2\2\2K<\3\2\2\2K@\3\2\2\2KD\3\2\2\2KH\3\2\2\2L\5\3\2\2\2MN\b\4\1\2"+

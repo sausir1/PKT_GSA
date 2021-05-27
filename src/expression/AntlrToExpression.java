@@ -4,8 +4,10 @@ import antlr.GsaGrammarBaseVisitor;
 import antlr.GsaGrammarParser.*;
 import operations.*;
 import org.antlr.v4.runtime.Token;
+import sun.security.util.ArrayUtil;
 import types.Number;
 
+import java.sql.Array;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,7 +19,6 @@ public class AntlrToExpression extends GsaGrammarBaseVisitor<Expression> {
     public AntlrToExpression(List<String> semanticErrors){
         vars = new ArrayList<>();
         this.semanticErrors = semanticErrors;
-
     }
 
     /*
@@ -106,8 +107,11 @@ public class AntlrToExpression extends GsaGrammarBaseVisitor<Expression> {
     public Expression visitIntDeclaration(IntDeclarationContext ctx) {
         String id = checkIfExists(ctx);
         String type = ctx.getChild(0).getText();
-        String val = ctx.getChild(3).getText();
-        return new VariableDeclaration(id, Types.INT,val);
+        ExpressionProcessor ep = new ExpressionProcessor();
+        Expression val = visit(ctx.getChild(3));
+        int rez = ep.getResultOf(val);
+        String value = String.valueOf(rez);
+        return new VariableDeclaration(id, Types.INT,value);
     }
 
     @Override
@@ -285,4 +289,41 @@ public class AntlrToExpression extends GsaGrammarBaseVisitor<Expression> {
         return new ForTo(start,end,e);
     }
 
+    @Override
+    public Expression visitAssignment(AssignmentContext ctx) {
+        if(!vars.contains(ctx.getChild(0).getText())){
+            semanticErrors.add("ERROR ASSIGNING A VARIABLE");
+        }
+        Expression value = visit(ctx.getChild(2));
+        ExpressionProcessor ep = new ExpressionProcessor();
+        int val = ep.getResultOf(value);
+        String ats = String.valueOf(val);
+        return new VariableDeclaration(ctx.getChild(0).getText(), Types.INT,ats);
+    }
+
+    @Override
+    public Expression visitSingleArg(SingleArgContext ctx) {
+
+        return super.visitSingleArg(ctx);
+    }
+
+    @Override
+    public Expression visitMultipleArguments(MultipleArgumentsContext ctx) {
+
+        return super.visitMultipleArguments(ctx);
+    }
+
+    @Override
+    public Expression visitMethodDefinition(MethodDefinitionContext ctx) {
+        Expression e = visit(ctx.getChild(0));
+        return super.visitMethodDefinition(ctx);
+    }
+
+    @Override
+    public Expression visitMethodArguments(MethodArgumentsContext ctx) {
+        if(ctx.getChildCount() > 2){
+            Expression e = visit(ctx.getChild(1));
+        }
+        return super.visitMethodArguments(ctx);
+    }
 }

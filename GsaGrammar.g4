@@ -7,7 +7,7 @@ package antlr;
 prog : (decl | expr | statement | methodInvocation)+ EOF # Program
      ;
 
-decl: INT ID ASSIGN NUM         #   IntDeclaration
+decl: INT ID ASSIGN expr        #   IntDeclaration
      | STRING ID ASSIGN STRG    #   StringDeclaration
      | BOOLEAN ID ASSIGN BOOL   #   BoolDeclaration
      | CHAR_T ID ASSIGN CHAR    #   CharDeclaration
