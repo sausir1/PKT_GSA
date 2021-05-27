@@ -43,9 +43,10 @@ ifStmt: IF PARANTESSES1 expr PARANTESSES2 CURLYBRACKET1 (expr | statement)? CURL
 elifStmt: ELIF PARANTESSES1 expr PARANTESSES2 CURLYBRACKET1 (expr | statement)? CURLYBRACKET2   #ElifStatement;
 elseStmt: ELSE CURLYBRACKET1 (expr | statement)? CURLYBRACKET2  #ElseStatement;
 
-iterationStatement : FOR PARANTESSES1 NUM TO NUM PARANTESSES2 CURLYBRACKET1 (expr | statement)? CURLYBRACKET2 #ForToStatement
-                   | FOR PARANTESSES1 UNTIL NUM PARANTESSES2 CURLYBRACKET1 (expr | statement)? CURLYBRACKET2  #ForUntilStatement
+iterationStatement : FOR PARANTESSES1 NUM TO NUM PARANTESSES2 CURLYBRACKET1 blockStatement CURLYBRACKET2 #ForToStatement
+                   | FOR PARANTESSES1 UNTIL NUM PARANTESSES2 CURLYBRACKET1 blockStatement CURLYBRACKET2  #ForUntilStatement
                    ;
+
 
 blockStatement : (expr | decl | statement | methodInvocation)+     #LocalStatement
                 ;
