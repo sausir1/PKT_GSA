@@ -1,5 +1,4 @@
-int a = 3
-int b = 3
 for(1 to 8){
-    a+b
+    a
+    b
 }
