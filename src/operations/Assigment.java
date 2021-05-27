@@ -16,6 +16,6 @@ public class Assigment {
 
     @Override
     public String toString(){
-        return left.toString() + " / " + right.toString();
+        return left.toString() + " = " + right.toString();
     }
 }

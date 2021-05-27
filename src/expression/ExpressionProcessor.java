@@ -32,6 +32,13 @@ public class ExpressionProcessor extends Expression{
         allIDs = new ArrayList<>();
     }
 
+    public int getInteger(String id){
+
+        if(intVals.containsKey(id)) {
+            return intVals.get(id);
+        }
+        else return 0;
+    }
     public List<String> getResults(){
         List<String> results = new ArrayList<>();
         for (Expression e:expressions)
@@ -65,6 +72,40 @@ public class ExpressionProcessor extends Expression{
                 }
             }
         }
+        return results;
+    }
+
+    public List<String> getResults(Expression e){
+        List<String> results = new ArrayList<>();
+            if(e instanceof VariableDeclaration){
+                VariableDeclaration decl = (VariableDeclaration) e;
+                switch (decl.type){
+                    case INT:
+                        intVals.put(decl.id, decl.getNumVal());
+                        break;
+                    case CHAR:
+                        charVals.put(decl.id,decl.getStrVal());
+                        break;
+                    case STRING:
+                        stringVals.put(decl.id, decl.getStrVal());
+                        break;
+                    case BOOL:
+                        booleanVals.put(decl.id, decl.isBoolVal());
+                        break;
+                }
+                //results.add(decl.id + " is " + decl.val);
+            } else {
+                //visiems kitiems atvejams
+                String input = e.toString();
+                int res = getResultOf(e);
+                if(res == 0){ // GetResultOf metode jeigu neiskviecia funkcijos, kvies GetREsultOfBool funkcija
+                    boolean res2 = getResultOfBool(e);
+                    results.add(input + " = " + res2);
+                }else {
+                    results.add(input + " = " + res);
+                }
+            }
+
         return results;
     }
 
@@ -109,56 +150,10 @@ public class ExpressionProcessor extends Expression{
             int right = getResultOf(subt.getRight());
             result = left - right;
         }
-//        else if (e instanceof Equals){
-//            Equals eq = (Equals) e;
-//            int left = getResultOf(eq.getLeft());
-//            int right = getResultOf(eq.getRight());
-//            if(left == right){
-//                result = 1;
-//            }else{
-//                result = 0;
-//            }
-//        }
-//        else if (e instanceof EqualsOrGreaterThan){
-//            EqualsOrGreaterThan eq = (EqualsOrGreaterThan) e;
-//            int left = getResultOf(eq.getLeft());
-//            int right = getResultOf(eq.getRight());
-//            if(left >= right){
-//                result = 1;
-//            }else{
-//                result = 0;
-//            }
-//        }
-//        else if (e instanceof EqualsOrLessThan){
-//            EqualsOrLessThan eq = (EqualsOrLessThan) e;
-//            int left = getResultOf(eq.getLeft());
-//            int right = getResultOf(eq.getRight());
-//            if(left <= right){
-//                result = 1;
-//            }else{
-//                result = 0;
-//            }
-//        }
-//        else if (e instanceof GreaterThan){
-//            GreaterThan eq = (GreaterThan) e;
-//            int left = getResultOf(eq.getLeft());
-//            int right = getResultOf(eq.getRight());
-//            if(left > right){
-//                result = 1;
-//            }else{
-//                result = 0;
-//            }
-//        }
-//        else if (e instanceof LessThan){
-//            LessThan eq = (LessThan) e;
-//            int left = getResultOf(eq.getLeft());
-//            int right = getResultOf(eq.getRight());
-//            if(left < right){
-//                result = 1;
-//            }else{
-//                result = 0;
-//            }
-//        }
+        else if (e instanceof  ForTo){
+            ForTo f = (ForTo) e;
+            forTo(f);
+        }
         return result;
     }
 
@@ -215,5 +210,15 @@ public class ExpressionProcessor extends Expression{
             }
         }
         return result;
+    }
+
+    public void forTo(Expression expression){
+        if(expression instanceof ForTo){
+            ForTo fr = (ForTo) expression;
+            for (int i = fr.getStart(); i < fr.getEnd(); i++){
+                fr.setCurrent(i);
+                System.out.println((getResults(fr.getExpression())));
+            }
+        }
     }
 }

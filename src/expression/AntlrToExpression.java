@@ -2,15 +2,7 @@ package expression;
 
 import antlr.GsaGrammarBaseVisitor;
 import antlr.GsaGrammarParser.*;
-import operations.Addition;
-import operations.Division;
-import operations.Multiplication;
-import operations.Subtraction;
-import operations.Equals;
-import operations.EqualsOrGreaterThan;
-import operations.EqualsOrLessThan;
-import operations.GreaterThan;
-import operations.LessThan;
+import operations.*;
 import org.antlr.v4.runtime.Token;
 import types.Number;
 
@@ -20,9 +12,12 @@ import java.util.List;
 
 public class AntlrToExpression extends GsaGrammarBaseVisitor<Expression> {
 
+    public ExpressionProcessor ep = new ExpressionProcessor();
+
     public AntlrToExpression(List<String> semanticErrors){
         vars = new ArrayList<>();
         this.semanticErrors = semanticErrors;
+
     }
 
     /*
@@ -148,12 +143,6 @@ public class AntlrToExpression extends GsaGrammarBaseVisitor<Expression> {
         return new Variable(id);
     }
 
-
-    @Override
-    public Expression visitAssignment(AssignmentContext ctx) {
-        return super.visitAssignment(ctx);
-    }
-
     @Override
     public Expression visitEqualsOrGreaterThan(EqualsOrGreaterThanContext ctx) {
         Expression left = visit(ctx.getChild(0));
@@ -192,13 +181,13 @@ public class AntlrToExpression extends GsaGrammarBaseVisitor<Expression> {
 
     @Override
     public Expression visitCondition(ConditionContext ctx) {
-        int n = ctx.conditionalStatement().getChildCount();
-
-        for(int i = 0; i< n; i++)
-        {
-            Expression e = visit(ctx.getChild())
-        }
-        return new ;
+//        int n = ctx.conditionalStatement().getChildCount();
+//
+//        for(int i = 0; i< n; i++)
+//        {
+//            Expression e = visit(ctx.getChild());
+//        }
+        return super.visitCondition(ctx);
     }
 
     @Override
@@ -273,7 +262,7 @@ public class AntlrToExpression extends GsaGrammarBaseVisitor<Expression> {
     public Expression visitIteration(IterationContext ctx) {
         Expression e = visit(ctx.getChild(0));
 
-        return new Iteration(e);
+        return new Iteration(e).getIteration();
     }
 
     @Override
@@ -293,7 +282,7 @@ public class AntlrToExpression extends GsaGrammarBaseVisitor<Expression> {
         int end = Integer.parseInt(ctx.getChild(4).getText());
         Expression e = visit(ctx.getChild(7));
 
-
-        return super.visitForToStatement(ctx);
+        return new ForTo(start,end,e);
     }
+
 }
