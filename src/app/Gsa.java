@@ -15,6 +15,8 @@ import java.io.IOException;
 
 public class Gsa {
     public static void main(String[] args) {
+
+
         if(args.length == 1)
         {
             String file = args[0];

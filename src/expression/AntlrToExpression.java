@@ -1,13 +1,19 @@
 package expression;
 
 import antlr.GsaGrammarBaseVisitor;
-import antlr.GsaGrammarParser;
 import antlr.GsaGrammarParser.*;
-import operations.*;
+import operations.Addition;
+import operations.Division;
+import operations.Multiplication;
+import operations.Subtraction;
+import operations.Equals;
+import operations.EqualsOrGreaterThan;
+import operations.EqualsOrLessThan;
+import operations.GreaterThan;
+import operations.LessThan;
 import org.antlr.v4.runtime.Token;
 import types.Number;
 
-import javax.naming.Context;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -263,4 +269,31 @@ public class AntlrToExpression extends GsaGrammarBaseVisitor<Expression> {
         return new Number(num);
     }
 
+    @Override
+    public Expression visitIteration(IterationContext ctx) {
+        Expression e = visit(ctx.getChild(0));
+
+        return new Iteration(e);
+    }
+
+    @Override
+    public Expression visitLocalStatements(LocalStatementsContext ctx) {
+        List<Expression> expressions = new ArrayList<Expression>();
+        for(int i = 0; i< ctx.getChildCount(); i++){
+            Expression e = visit(ctx.getChild(i));
+            expressions.add(e);
+        }
+
+        return new LocalStatements(expressions);
+    }
+
+    @Override
+    public Expression visitForToStatement(ForToStatementContext ctx) {
+        int start = Integer.parseInt(ctx.getChild(2).getText());
+        int end = Integer.parseInt(ctx.getChild(4).getText());
+        Expression e = visit(ctx.getChild(7));
+
+
+        return super.visitForToStatement(ctx);
+    }
 }
