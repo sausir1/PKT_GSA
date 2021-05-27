@@ -2,7 +2,7 @@ package operations;
 
 import expression.Expression;
 
-public class GreaterThan {
+public class GreaterThan extends Expression{
     Expression left;
     Expression right;
 
