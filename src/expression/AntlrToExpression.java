@@ -9,6 +9,7 @@ import types.Number;
 
 import java.sql.Array;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 
@@ -19,6 +20,8 @@ public class AntlrToExpression extends GsaGrammarBaseVisitor<Expression> {
     public AntlrToExpression(List<String> semanticErrors){
         vars = new ArrayList<>();
         this.semanticErrors = semanticErrors;
+         expressionsList = new ArrayList<>();
+
     }
 
     /*
@@ -27,6 +30,7 @@ public class AntlrToExpression extends GsaGrammarBaseVisitor<Expression> {
      *  kokia buvo iskviesti ir metodai
      **/
     private List<String> vars; // susideti visiems kintamiesiems paskelbtus programoje
+    private List<Expression> expressionsList;
 
     //Klaidoms talpinti
     private List<String> semanticErrors; //pakartotiniams paskelbimams, nepasklebtu kintamuju naudojimas
@@ -105,13 +109,16 @@ public class AntlrToExpression extends GsaGrammarBaseVisitor<Expression> {
 
     @Override
     public Expression visitIntDeclaration(IntDeclarationContext ctx) {
-        String id = checkIfExists(ctx);
+        //String id = checkIfExists(ctx);
+        String id = ctx.getChild(1).getText();
+        vars.add(id);
         String type = ctx.getChild(0).getText();
-        ExpressionProcessor ep = new ExpressionProcessor();
+        ExpressionProcessor ep = new ExpressionProcessor(expressionsList);
         Expression val = visit(ctx.getChild(3));
         int rez = ep.getResultOf(val);
         String value = String.valueOf(rez);
-        return new VariableDeclaration(id, Types.INT,value);
+        expressionsList.add(new VariableDeclaration(id, Types.INT,value));
+        return expressionsList.get(expressionsList.size()-1);
     }
 
     @Override
@@ -295,10 +302,10 @@ public class AntlrToExpression extends GsaGrammarBaseVisitor<Expression> {
             semanticErrors.add("ERROR ASSIGNING A VARIABLE");
         }
         Expression value = visit(ctx.getChild(2));
-        ExpressionProcessor ep = new ExpressionProcessor();
-        int val = ep.getResultOf(value);
+        ExpressionProcessor ep = new ExpressionProcessor(expressionsList);
+        List<String> val = ep.getResults();
         String ats = String.valueOf(val);
-        return new VariableDeclaration(ctx.getChild(0).getText(), Types.INT,ats);
+        return new Assigment(id);
     }
 
     @Override

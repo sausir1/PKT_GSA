@@ -3,19 +3,16 @@ package operations;
 import expression.Expression;
 
 public class Assigment {
-    Expression left;
-    Expression right;
+    String id;
 
-    public Expression getLeft(){ return left; }
-    public Expression getRight(){ return right; }
+    public String getId(){ return id; }
 
-    public Assigment(Expression left, Expression right){
-        this.left = left;
-        this.right = right;
+    public Assigment(String id){
+        this.id = id;
     }
 
     @Override
     public String toString(){
-        return left.toString() + " = " + right.toString();
+        return id;
     }
 }
