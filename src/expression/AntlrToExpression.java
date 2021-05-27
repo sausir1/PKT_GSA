@@ -1,19 +1,13 @@
 package expression;
 
 import antlr.GsaGrammarBaseVisitor;
+import antlr.GsaGrammarParser;
 import antlr.GsaGrammarParser.*;
-import operations.Addition;
-import operations.Division;
-import operations.Multiplication;
-import operations.Subtraction;
-import operations.Equals;
-import operations.EqualsOrGreaterThan;
-import operations.EqualsOrLessThan;
-import operations.GreaterThan;
-import operations.LessThan;
+import operations.*;
 import org.antlr.v4.runtime.Token;
 import types.Number;
 
+import javax.naming.Context;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -183,6 +177,62 @@ public class AntlrToExpression extends GsaGrammarBaseVisitor<Expression> {
     @Override
     public Expression visitChar(CharContext ctx) {
         return super.visitChar(ctx);
+    }
+
+    @Override
+    public Expression visitIfElseStatement(IfElseStatementContext ctx) {
+      return super.visitIfElseStatement(ctx);
+    }
+
+    @Override
+    public Expression visitCondition(ConditionContext ctx) {
+        int n = ctx.conditionalStatement().getChildCount();
+
+        for(int i = 0; i< n; i++)
+        {
+            Expression e = visit(ctx.getChild())
+        }
+        return new ;
+    }
+
+    @Override
+    public Expression visitIfElifStatement(IfElifStatementContext ctx) {
+        return super.visitIfElifStatement(ctx);
+    }
+
+    @Override
+    public Expression visitConditionBlock(ConditionBlockContext ctx) {
+
+        Expression e = visitGreaterThan((GreaterThanContext) ctx.expr() );
+        return new ConditionBlock(e);
+    }
+
+    @Override
+    public Expression visitIfStatement(IfStatementContext ctx) {
+        Expression condition = visit(ctx.getChild(1));
+        Expression body = visit(ctx.ifBody());
+        return new IfStatement(condition, body);
+    }
+
+    @Override
+    public Expression visitElifStatement(ElifStatementContext ctx) {
+        return super.visitElifStatement(ctx);
+    }
+
+    @Override
+    public Expression visitElseStatement(ElseStatementContext ctx) {
+        return super.visitElseStatement(ctx);
+    }
+
+    @Override
+    public Expression visitConditionBody(ConditionBodyContext ctx) {
+        List<Expression> expressions = new ArrayList<>();
+        for(int i = 1; i< ctx.getChildCount()-1; i++)
+        {
+            Expression e = visit(ctx.getChild(i));
+            expressions.add(e);
+        }
+        return new ConditionBody(expressions);
     }
 
     @Override

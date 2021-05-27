@@ -306,6 +306,18 @@ public class GsaGrammarBaseListener implements GsaGrammarListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
+	@Override public void enterOnlyIfStatement(GsaGrammarParser.OnlyIfStatementContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitOnlyIfStatement(GsaGrammarParser.OnlyIfStatementContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
 	@Override public void enterIfElseStatement(GsaGrammarParser.IfElseStatementContext ctx) { }
 	/**
 	 * {@inheritDoc}
@@ -361,6 +373,30 @@ public class GsaGrammarBaseListener implements GsaGrammarListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitElseStatement(GsaGrammarParser.ElseStatementContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterConditionBody(GsaGrammarParser.ConditionBodyContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitConditionBody(GsaGrammarParser.ConditionBodyContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterConditionBlock(GsaGrammarParser.ConditionBlockContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitConditionBlock(GsaGrammarParser.ConditionBlockContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *

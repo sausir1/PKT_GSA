@@ -36,12 +36,16 @@ statement : conditionalStatement    #   Condition
           | returnStatement         #   Return
           ;
 
-conditionalStatement : ifStmt  elseStmt?  # IfElseStatement
+conditionalStatement : ifStmt             # OnlyIfStatement
+                     | ifStmt  elseStmt?  # IfElseStatement
                      | ifStmt+ elifStmt elseStmt?    # IfElifStatement
                      ;
-ifStmt: IF PARANTESSES1 expr PARANTESSES2 CURLYBRACKET1 (expr | statement)? CURLYBRACKET2   #IfStatement;
+ifStmt: IF conditionBlock   ifBody  #IfStatement;
 elifStmt: ELIF PARANTESSES1 expr PARANTESSES2 CURLYBRACKET1 (expr | statement)? CURLYBRACKET2   #ElifStatement;
-elseStmt: ELSE CURLYBRACKET1 (expr | statement)? CURLYBRACKET2  #ElseStatement;
+elseStmt: ELSE ifBody  #ElseStatement;
+ifBody: CURLYBRACKET1 (expr | statement | decl)* CURLYBRACKET2 #ConditionBody;
+
+conditionBlock: PARANTESSES1 expr PARANTESSES2;
 
 iterationStatement : FOR PARANTESSES1 NUM TO NUM PARANTESSES2 CURLYBRACKET1 (expr | statement)? CURLYBRACKET2 #ForToStatement
                    | FOR PARANTESSES1 UNTIL NUM PARANTESSES2 CURLYBRACKET1 (expr | statement)? CURLYBRACKET2  #ForUntilStatement

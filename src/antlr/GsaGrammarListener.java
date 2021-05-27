@@ -298,6 +298,18 @@ public interface GsaGrammarListener extends ParseTreeListener {
 	 */
 	void exitReturn(GsaGrammarParser.ReturnContext ctx);
 	/**
+	 * Enter a parse tree produced by the {@code OnlyIfStatement}
+	 * labeled alternative in {@link GsaGrammarParser#conditionalStatement}.
+	 * @param ctx the parse tree
+	 */
+	void enterOnlyIfStatement(GsaGrammarParser.OnlyIfStatementContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code OnlyIfStatement}
+	 * labeled alternative in {@link GsaGrammarParser#conditionalStatement}.
+	 * @param ctx the parse tree
+	 */
+	void exitOnlyIfStatement(GsaGrammarParser.OnlyIfStatementContext ctx);
+	/**
 	 * Enter a parse tree produced by the {@code IfElseStatement}
 	 * labeled alternative in {@link GsaGrammarParser#conditionalStatement}.
 	 * @param ctx the parse tree
@@ -357,6 +369,28 @@ public interface GsaGrammarListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitElseStatement(GsaGrammarParser.ElseStatementContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code ConditionBody}
+	 * labeled alternative in {@link GsaGrammarParser#ifBody}.
+	 * @param ctx the parse tree
+	 */
+	void enterConditionBody(GsaGrammarParser.ConditionBodyContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code ConditionBody}
+	 * labeled alternative in {@link GsaGrammarParser#ifBody}.
+	 * @param ctx the parse tree
+	 */
+	void exitConditionBody(GsaGrammarParser.ConditionBodyContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link GsaGrammarParser#conditionBlock}.
+	 * @param ctx the parse tree
+	 */
+	void enterConditionBlock(GsaGrammarParser.ConditionBlockContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link GsaGrammarParser#conditionBlock}.
+	 * @param ctx the parse tree
+	 */
+	void exitConditionBlock(GsaGrammarParser.ConditionBlockContext ctx);
 	/**
 	 * Enter a parse tree produced by the {@code ForToStatement}
 	 * labeled alternative in {@link GsaGrammarParser#iterationStatement}.
