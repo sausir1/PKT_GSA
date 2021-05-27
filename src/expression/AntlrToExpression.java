@@ -2,15 +2,7 @@ package expression;
 
 import antlr.GsaGrammarBaseVisitor;
 import antlr.GsaGrammarParser.*;
-import operations.Addition;
-import operations.Division;
-import operations.Multiplication;
-import operations.Subtraction;
-import operations.Equals;
-import operations.EqualsOrGreaterThan;
-import operations.EqualsOrLessThan;
-import operations.GreaterThan;
-import operations.LessThan;
+import operations.*;
 import org.antlr.v4.runtime.Token;
 import types.Number;
 
@@ -193,12 +185,13 @@ public class AntlrToExpression extends GsaGrammarBaseVisitor<Expression> {
     @Override
     public Expression visitCondition(ConditionContext ctx) {
         int n = ctx.conditionalStatement().getChildCount();
-
-        for(int i = 0; i< n; i++)
+        List<Expression> expressions = new ArrayList<>();
+        for(int i = 0; i < ctx.conditionalStatement().getChildCount();i++) // yra ne tik if bet ir else
         {
-            Expression e = visit(ctx.getChild())
+            Expression statement = visit(ctx.conditionalStatement().getChild(0));
+            expressions.add(statement);
         }
-        return new ;
+        return new Condition(expressions);
     }
 
     @Override
@@ -208,14 +201,13 @@ public class AntlrToExpression extends GsaGrammarBaseVisitor<Expression> {
 
     @Override
     public Expression visitConditionBlock(ConditionBlockContext ctx) {
-
-        Expression e = visitGreaterThan((GreaterThanContext) ctx.expr() );
+        Expression e = visit(ctx.expr());
         return new ConditionBlock(e);
     }
 
     @Override
     public Expression visitIfStatement(IfStatementContext ctx) {
-        Expression condition = visit(ctx.getChild(1));
+        Expression condition = visit(ctx.conditionBlock());
         Expression body = visit(ctx.ifBody());
         return new IfStatement(condition, body);
     }

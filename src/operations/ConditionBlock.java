@@ -5,14 +5,14 @@ import expression.Expression;
 public class ConditionBlock extends Expression {
     Expression mid;
 
-    public Expression getMid(){ return mid; }
+    public Expression getAnswer(){ return mid; }
 
-    public ConditionBlock(Expression left){
-        this.mid = left;
+    public ConditionBlock(Expression answer){
+        this.mid = answer;
     }
 
     @Override
     public String toString(){
-        return mid.toString();
+        return "Condition " + mid.toString();
     }
 }

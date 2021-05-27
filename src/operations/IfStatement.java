@@ -7,6 +7,8 @@ public class IfStatement extends Expression {
     Expression body;
 
     public Expression getEquation(){ return equation; }
+    public Expression getBody(){ return body; }
+
 
 
     public IfStatement(Expression equation, Expression body){

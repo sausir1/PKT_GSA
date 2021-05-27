@@ -32,6 +32,8 @@ public class ExpressionProcessor extends Expression{
         allIDs = new ArrayList<>();
     }
 
+
+
     public List<String> getResults(){
         List<String> results = new ArrayList<>();
         for (Expression e:expressions)
@@ -53,7 +55,16 @@ public class ExpressionProcessor extends Expression{
                         break;
                 }
                 //results.add(decl.id + " is " + decl.val);
-            } else {
+            }
+            else if(e instanceof Condition)
+            {
+                ConditionBody res =  getResultOfCondition((Condition) e);
+                if(res!= null)
+                {
+                    getResults(res);
+                }
+            }
+            else {
                 //visiems kitiems atvejams
                 String input = e.toString();
                 int res = getResultOf(e);
@@ -68,6 +79,59 @@ public class ExpressionProcessor extends Expression{
         return results;
     }
 
+
+    public List<String> getResults(Expression e){
+        List<String> results = new ArrayList<>();
+        for (Expression e2:expressions)
+        {
+            if(e instanceof Condition)
+            {
+                Expression res =  getResultOfCondition((Condition) e);
+                if(res!= null)
+                {
+                    getResults(res);
+                }
+            }
+            else {
+                //visiems kitiems atvejams
+                String input = e2.toString();
+                int res = getResultOf(e2);
+                if(res == 0){ // GetResultOf metode jeigu neiskviecia funkcijos, kvies GetREsultOfBool funkcija
+                    boolean res2 = getResultOfBool(e2);
+                    results.add(input + " = " + res2);
+                }else {
+                    results.add(input + " = " + res);
+                }
+            }
+        }
+        return results;
+    }
+
+
+    private ConditionBody getResultOfCondition(Condition e)
+    {
+        ConditionBody cb = null;
+        List<Expression> ems = e.getMid();
+        for(int i = 0; i< ems.size(); i++)
+        {
+            cb = getResultOfStatement(ems.get(i));
+            if(cb != null)
+            {
+                return cb;
+            }
+        }
+        return cb;
+    }
+
+    private ConditionBody getResultOfStatement(Expression e)
+    {
+        ConditionBlock cblck = (ConditionBlock) ((IfStatement) e).getEquation();
+        if(getResultOfBool((cblck.getAnswer())))
+        {
+            return (ConditionBody) ((IfStatement) e).getBody();
+        }
+        return null;
+    }
 
     // TODO visa sita metoda dar  reikia pertvarkyt, nes cia tik sudetis tarp skaiciu veikia
     public int getResultOf(Expression e){
@@ -109,56 +173,6 @@ public class ExpressionProcessor extends Expression{
             int right = getResultOf(subt.getRight());
             result = left - right;
         }
-//        else if (e instanceof Equals){
-//            Equals eq = (Equals) e;
-//            int left = getResultOf(eq.getLeft());
-//            int right = getResultOf(eq.getRight());
-//            if(left == right){
-//                result = 1;
-//            }else{
-//                result = 0;
-//            }
-//        }
-//        else if (e instanceof EqualsOrGreaterThan){
-//            EqualsOrGreaterThan eq = (EqualsOrGreaterThan) e;
-//            int left = getResultOf(eq.getLeft());
-//            int right = getResultOf(eq.getRight());
-//            if(left >= right){
-//                result = 1;
-//            }else{
-//                result = 0;
-//            }
-//        }
-//        else if (e instanceof EqualsOrLessThan){
-//            EqualsOrLessThan eq = (EqualsOrLessThan) e;
-//            int left = getResultOf(eq.getLeft());
-//            int right = getResultOf(eq.getRight());
-//            if(left <= right){
-//                result = 1;
-//            }else{
-//                result = 0;
-//            }
-//        }
-//        else if (e instanceof GreaterThan){
-//            GreaterThan eq = (GreaterThan) e;
-//            int left = getResultOf(eq.getLeft());
-//            int right = getResultOf(eq.getRight());
-//            if(left > right){
-//                result = 1;
-//            }else{
-//                result = 0;
-//            }
-//        }
-//        else if (e instanceof LessThan){
-//            LessThan eq = (LessThan) e;
-//            int left = getResultOf(eq.getLeft());
-//            int right = getResultOf(eq.getRight());
-//            if(left < right){
-//                result = 1;
-//            }else{
-//                result = 0;
-//            }
-//        }
         return result;
     }
 
