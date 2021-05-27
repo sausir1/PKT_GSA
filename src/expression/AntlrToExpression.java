@@ -178,6 +178,7 @@ public class AntlrToExpression extends GsaGrammarBaseVisitor<Expression> {
 
     @Override
     public Expression visitGreaterThan(GreaterThanContext ctx) {
+
         return super.visitGreaterThan(ctx);
     }
 
