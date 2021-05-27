@@ -21,6 +21,8 @@ public class ExpressionProcessor extends Expression{
     //public Map<String,String> methodDeclarations; nzn ar sito reikia kolkas
 
 
+    public ExpressionProcessor(){}
+
     public ExpressionProcessor(List<Expression> list){
         this.expressions = list;
         stringVals = new HashMap<>();
@@ -68,7 +70,7 @@ public class ExpressionProcessor extends Expression{
 
 
     // TODO visa sita metoda dar  reikia pertvarkyt, nes cia tik sudetis tarp skaiciu veikia
-    private int getResultOf(Expression e){
+    public int getResultOf(Expression e){
         int result = 0;
         if(e instanceof Number){
             Number num = (Number) e;
@@ -160,7 +162,7 @@ public class ExpressionProcessor extends Expression{
         return result;
     }
 
-    private boolean getResultOfBool(Expression e){
+    public boolean getResultOfBool(Expression e){
         boolean result = false;
         if (e instanceof Equals){
             Equals eq = (Equals) e;

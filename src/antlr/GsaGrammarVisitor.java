@@ -181,6 +181,13 @@ public interface GsaGrammarVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitReturn(GsaGrammarParser.ReturnContext ctx);
 	/**
+	 * Visit a parse tree produced by the {@code OnlyIfStatement}
+	 * labeled alternative in {@link GsaGrammarParser#conditionalStatement}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitOnlyIfStatement(GsaGrammarParser.OnlyIfStatementContext ctx);
+	/**
 	 * Visit a parse tree produced by the {@code IfElseStatement}
 	 * labeled alternative in {@link GsaGrammarParser#conditionalStatement}.
 	 * @param ctx the parse tree
@@ -215,6 +222,19 @@ public interface GsaGrammarVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitElseStatement(GsaGrammarParser.ElseStatementContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code ConditionBody}
+	 * labeled alternative in {@link GsaGrammarParser#ifBody}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitConditionBody(GsaGrammarParser.ConditionBodyContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link GsaGrammarParser#conditionBlock}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitConditionBlock(GsaGrammarParser.ConditionBlockContext ctx);
 	/**
 	 * Visit a parse tree produced by the {@code ForToStatement}
 	 * labeled alternative in {@link GsaGrammarParser#iterationStatement}.
