@@ -4,12 +4,8 @@ import antlr.GsaGrammarBaseVisitor;
 import antlr.GsaGrammarParser.*;
 import operations.*;
 import org.antlr.v4.runtime.Token;
-import sun.security.util.ArrayUtil;
 import types.Number;
-
-import java.sql.Array;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 
@@ -79,28 +75,28 @@ public class AntlrToExpression extends GsaGrammarBaseVisitor<Expression> {
     @Override
     public Expression visitStringDeclaration(StringDeclarationContext ctx) {
         String id = checkIfExists(ctx);
-        String val = ctx.getChild(3).getText();
+        Expression val = visit(ctx.getChild(3));
+        vars.add(id);
         return new VariableDeclaration(id, Types.STRING,val);
     }
 
     @Override
     public Expression visitBoolDeclaration(BoolDeclarationContext ctx) {
         String id = checkIfExists(ctx);
-        String val = ctx.getChild(3).getText();
+        Expression val = visit(ctx.getChild(3));
+        vars.add(id);
         return new VariableDeclaration(id, Types.BOOL,val);
     }
 
     @Override
     public Expression visitCharDeclaration(CharDeclarationContext ctx) {
         String id = checkIfExists(ctx);
-        String val = ctx.getChild(3).getText();
+        Expression val = visit(ctx.getChild(3));
+        vars.add(id);
         return new VariableDeclaration(id, Types.CHAR,val);
     }
 
-    @Override
-    public Expression visitMethodDeclaration(MethodDeclarationContext ctx) {
-        return super.visitMethodDeclaration(ctx);
-    }
+
 
     @Override
     public Expression visitString(StringContext ctx) {
@@ -110,15 +106,10 @@ public class AntlrToExpression extends GsaGrammarBaseVisitor<Expression> {
 
     @Override
     public Expression visitIntDeclaration(IntDeclarationContext ctx) {
-        String id = checkIfExists(ctx);
-        //String id = ctx.getChild(1).getText();
-        //vars.add(id);
-        String type = ctx.getChild(0).getText();
+        String id = ctx.getChild(1).getText();
+        vars.add(id);
         Expression val = visit(ctx.getChild(3));
-        int rez = ep.getResultOf(val);
-        String value = String.valueOf(rez);
-        expressionsList.add(new VariableDeclaration(id, Types.INT,value));
-        return expressionsList.get(expressionsList.size()-1);
+        return new VariableDeclaration(id, Types.INT,val);
     }
 
     @Override
@@ -298,13 +289,9 @@ public class AntlrToExpression extends GsaGrammarBaseVisitor<Expression> {
 
     @Override
     public Expression visitAssignment(AssignmentContext ctx) {
-        if(!vars.contains(ctx.getChild(0).getText())){
-            semanticErrors.add("ERROR ASSIGNING A VARIABLE");
-        }
-        Expression value = visit(ctx.getChild(2));
-        List<String> val = ep.getResults();
-        String ats = String.valueOf(val);
-        return new Assigment(ats, 4);
+        String id = ctx.getChild(0).getText();
+        Expression equalsTo = visit(ctx.getChild(2));
+        return new Assigment(id,equalsTo);
     }
 
     @Override
@@ -320,35 +307,70 @@ public class AntlrToExpression extends GsaGrammarBaseVisitor<Expression> {
     }
 
     @Override
-    public Expression visitUnoStatement(UnoStatementContext ctx) {
-        List<Expression> expressions = new ArrayList<Expression>();
-        for(int i = 0; i< ctx.getChildCount(); i++){
-            Expression e = visit(ctx.getChild(i));
-            expressions.add(e);
+    public Expression visitMethodDeclaration(MethodDeclarationContext ctx) {
+        String name = ctx.getChild(1).getText();
+        Expression arguments = visit(ctx.getChild(2).getChild(0));
+        Expression body = null;
+        //check if body exists
+        if(ctx.getChild(2).getChild(1).getChildCount() > 2)
+        {
+            body = visit(ctx.getChild(2).getChild(1).getChild(1));
         }
-        return new UnoStatement(expressions);
+        return new Method(name,arguments,body);
     }
 
-    @Override
-    public Expression visitMethodInvocation(MethodInvocationContext ctx) {
-        Expression e = visit(ctx.getChild(0));
-
-        return new MethodInvocation(e);
-    }
 
     @Override
-    public Expression visitMethodDefinition(MethodDefinitionContext ctx) {
-        Expression e = visit(ctx.getChild(0));
-        return super.visitMethodDefinition(ctx);
+    public Expression visitLocalStatement(LocalStatementContext ctx) {
+        List<Expression> statements = new ArrayList<>();
+        int n = ctx.getChildCount();
+        for(int i = 0; i< n;i++)
+        {
+            Expression e = visit(ctx.getChild(i));
+            statements.add(e);
+        }
+        return new LocalStatements(statements);
     }
 
     @Override
     public Expression visitMethodArguments(MethodArgumentsContext ctx) {
-        if(ctx.getChildCount() > 2){
-            Expression e = visit(ctx.getChild(1));
-        }else{
-            Expression e = visit(ctx.getParent().getChild(1));
+        List<Expression> args = new ArrayList<>();
+        if(ctx.getChildCount()>2) //yra argumentu
+        {
+            int methodArgsCount = ctx.getChild(1).getChildCount();
+            for(int i = 0; i < methodArgsCount; i++) // is sonu skliaustai, cia arba multiple arba singe arg
+            {
+                if(!ctx.getChild(1).getChild(i).getText().contains(","))
+                {
+                    args.add(visit(ctx.getChild(1).getChild(i)));
+                }
+            }
         }
-        return super.visitMethodArguments(ctx);
+
+
+        return new MethodArguments(args);
+    }
+
+    @Override
+    public Expression visitParameter(ParameterContext ctx) {
+        String id = ctx.getChild(1).getText();
+        Types type = getType(ctx.getChild(0).getText());
+        return new MethodParameter(id,type);
+    }
+
+    private Types getType(String type)
+    {
+        switch (type)
+        {
+            case "int":
+                return Types.INT;
+            case "string":
+                return  Types.STRING;
+            case "bool":
+                return Types.BOOL;
+            case "char":
+                return Types.CHAR;
+        }
+        return null;
     }
 }

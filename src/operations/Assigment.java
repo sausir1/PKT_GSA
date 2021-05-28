@@ -2,20 +2,20 @@ package operations;
 
 import expression.Expression;
 
-public class Assigment extends Expression{
+public class Assigment extends Expression {
     String id;
-    int value;
+    Expression equalsTo;
 
     public String getId(){ return id; }
-    public int getValue() {return value;}
+    public Expression getRight(){return this.equalsTo;};
 
-    public Assigment(String id, int value){
+    public Assigment(String id, Expression equalsTo){
         this.id = id;
-        this.value = value;
+        this.equalsTo = equalsTo;
     }
 
     @Override
     public String toString(){
-        return id;
+        return id + "="+this.equalsTo.toString();
     }
 }

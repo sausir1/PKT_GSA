@@ -1,4 +1,4 @@
-// Generated from D:/untitled/PKT_GSA\GsaGrammar.g4 by ANTLR 4.9.1
+// Generated from C:/Users/Owner/IdeaProjects/Antlr4GSA\GsaGrammar.g4 by ANTLR 4.9.1
 
 package antlr;
 
@@ -438,30 +438,6 @@ public class GsaGrammarBaseListener implements GsaGrammarListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterHierarcyStatements(GsaGrammarParser.HierarcyStatementsContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitHierarcyStatements(GsaGrammarParser.HierarcyStatementsContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterUnoStatement(GsaGrammarParser.UnoStatementContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitUnoStatement(GsaGrammarParser.UnoStatementContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
 	@Override public void enterLocalStatements(GsaGrammarParser.LocalStatementsContext ctx) { }
 	/**
 	 * {@inheritDoc}
@@ -486,49 +462,13 @@ public class GsaGrammarBaseListener implements GsaGrammarListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterIntArg(GsaGrammarParser.IntArgContext ctx) { }
+	@Override public void enterParameter(GsaGrammarParser.ParameterContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitIntArg(GsaGrammarParser.IntArgContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterStringArg(GsaGrammarParser.StringArgContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitStringArg(GsaGrammarParser.StringArgContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterCharArg(GsaGrammarParser.CharArgContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitCharArg(GsaGrammarParser.CharArgContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterBoolArg(GsaGrammarParser.BoolArgContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitBoolArg(GsaGrammarParser.BoolArgContext ctx) { }
+	@Override public void exitParameter(GsaGrammarParser.ParameterContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
