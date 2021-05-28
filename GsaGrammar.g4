@@ -13,6 +13,7 @@ decl: INT ID ASSIGN expr        #   IntDeclaration
      | CHAR_T ID ASSIGN CHAR    #   CharDeclaration
      | DEFINE ID method         #   MethodDeclaration
      | INT ID SQUAREBRACKET1 (INT)? SQUAREBRACKET2 (ASSIGN CURLYBRACKET1 array_init CURLYBRACKET2)? #IntArrayDeclaration
+     | ID ASSIGN CAT_OPERATOR PARANTESSES1 methodInvocation COMMA NUM PARANTESSES2 # CatOperatorDeclaration
      ;
 
 array_init: NUM ( ',' NUM )* #IntArray;
@@ -117,7 +118,7 @@ SQUAREBRACKET2 :']';
 SCOL: ';';
 COMMA : ',';
 RETURN: 'return';
-
+CAT_OPERATOR: 'cat';
 
 IF : 'if';
 ELIF : 'elif';
