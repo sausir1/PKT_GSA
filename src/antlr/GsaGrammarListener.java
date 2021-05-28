@@ -1,4 +1,4 @@
-// Generated from C:/Users/Owner/IdeaProjects/Antlr4GSA\GsaGrammar.g4 by ANTLR 4.9.1
+// Generated from D:/untitled/PKT_GSA\GsaGrammar.g4 by ANTLR 4.9.1
 
 package antlr;
 
@@ -82,6 +82,40 @@ public interface GsaGrammarListener extends ParseTreeListener {
 	 */
 	void exitMethodDeclaration(GsaGrammarParser.MethodDeclarationContext ctx);
 	/**
+	 * Enter a parse tree produced by the {@code IntArrayDeclaration}
+	 * labeled alternative in {@link GsaGrammarParser#decl}.
+	 * @param ctx the parse tree
+	 */
+	void enterIntArrayDeclaration(GsaGrammarParser.IntArrayDeclarationContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code IntArrayDeclaration}
+	 * labeled alternative in {@link GsaGrammarParser#decl}.
+	 * @param ctx the parse tree
+	 */
+	void exitIntArrayDeclaration(GsaGrammarParser.IntArrayDeclarationContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code IntArray}
+	 * labeled alternative in {@link GsaGrammarParser#array_init}.
+	 * @param ctx the parse tree
+	 */
+	void enterIntArray(GsaGrammarParser.IntArrayContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code IntArray}
+	 * labeled alternative in {@link GsaGrammarParser#array_init}.
+	 * @param ctx the parse tree
+	 */
+	void exitIntArray(GsaGrammarParser.IntArrayContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link GsaGrammarParser#array_elem}.
+	 * @param ctx the parse tree
+	 */
+	void enterArray_elem(GsaGrammarParser.Array_elemContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link GsaGrammarParser#array_elem}.
+	 * @param ctx the parse tree
+	 */
+	void exitArray_elem(GsaGrammarParser.Array_elemContext ctx);
+	/**
 	 * Enter a parse tree produced by the {@code Multiplication}
 	 * labeled alternative in {@link GsaGrammarParser#expr}.
 	 * @param ctx the parse tree
@@ -129,6 +163,30 @@ public interface GsaGrammarListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitString(GsaGrammarParser.StringContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code CallArrayMember}
+	 * labeled alternative in {@link GsaGrammarParser#expr}.
+	 * @param ctx the parse tree
+	 */
+	void enterCallArrayMember(GsaGrammarParser.CallArrayMemberContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code CallArrayMember}
+	 * labeled alternative in {@link GsaGrammarParser#expr}.
+	 * @param ctx the parse tree
+	 */
+	void exitCallArrayMember(GsaGrammarParser.CallArrayMemberContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code Array}
+	 * labeled alternative in {@link GsaGrammarParser#expr}.
+	 * @param ctx the parse tree
+	 */
+	void enterArray(GsaGrammarParser.ArrayContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code Array}
+	 * labeled alternative in {@link GsaGrammarParser#expr}.
+	 * @param ctx the parse tree
+	 */
+	void exitArray(GsaGrammarParser.ArrayContext ctx);
 	/**
 	 * Enter a parse tree produced by the {@code Assignment}
 	 * labeled alternative in {@link GsaGrammarParser#expr}.

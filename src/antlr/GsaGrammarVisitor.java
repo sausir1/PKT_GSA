@@ -1,4 +1,4 @@
-// Generated from C:/Users/Owner/IdeaProjects/Antlr4GSA\GsaGrammar.g4 by ANTLR 4.9.1
+// Generated from D:/untitled/PKT_GSA\GsaGrammar.g4 by ANTLR 4.9.1
 
 package antlr;
 
@@ -55,6 +55,26 @@ public interface GsaGrammarVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitMethodDeclaration(GsaGrammarParser.MethodDeclarationContext ctx);
 	/**
+	 * Visit a parse tree produced by the {@code IntArrayDeclaration}
+	 * labeled alternative in {@link GsaGrammarParser#decl}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitIntArrayDeclaration(GsaGrammarParser.IntArrayDeclarationContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code IntArray}
+	 * labeled alternative in {@link GsaGrammarParser#array_init}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitIntArray(GsaGrammarParser.IntArrayContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link GsaGrammarParser#array_elem}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitArray_elem(GsaGrammarParser.Array_elemContext ctx);
+	/**
 	 * Visit a parse tree produced by the {@code Multiplication}
 	 * labeled alternative in {@link GsaGrammarParser#expr}.
 	 * @param ctx the parse tree
@@ -82,6 +102,20 @@ public interface GsaGrammarVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitString(GsaGrammarParser.StringContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code CallArrayMember}
+	 * labeled alternative in {@link GsaGrammarParser#expr}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitCallArrayMember(GsaGrammarParser.CallArrayMemberContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code Array}
+	 * labeled alternative in {@link GsaGrammarParser#expr}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitArray(GsaGrammarParser.ArrayContext ctx);
 	/**
 	 * Visit a parse tree produced by the {@code Assignment}
 	 * labeled alternative in {@link GsaGrammarParser#expr}.

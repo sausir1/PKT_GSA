@@ -12,7 +12,12 @@ decl: INT ID ASSIGN expr        #   IntDeclaration
      | BOOLEAN ID ASSIGN BOOL   #   BoolDeclaration
      | CHAR_T ID ASSIGN CHAR    #   CharDeclaration
      | DEFINE ID method         #   MethodDeclaration
+     | INT ID SQUAREBRACKET1 (INT)? SQUAREBRACKET2 (ASSIGN CURLYBRACKET1 array_init CURLYBRACKET2)? #IntArrayDeclaration
      ;
+
+array_init: NUM ( ',' NUM )* #IntArray;
+
+array_elem: ID SQUAREBRACKET1 expr SQUAREBRACKET2;
 
 expr : expr MULT expr        # Multiplication
      | expr DIV expr         # Division
@@ -29,6 +34,7 @@ expr : expr MULT expr        # Multiplication
      | expr EQGT expr        # EqualsOrGreaterThan
      | expr EQLT expr        # EqualsOrLessThan
      | expr ASSIGN expr      # Assignment
+     | array_elem            # CallArrayMember
      ;
 
 statement : conditionalStatement    #   Condition
@@ -106,6 +112,9 @@ PARANTESSES1 : '(';
 PARANTESSES2 : ')';
 CURLYBRACKET1 : '{';
 CURLYBRACKET2 : '}';
+SQUAREBRACKET1 :'[';
+SQUAREBRACKET2 :']';
+SCOL: ';';
 COMMA : ',';
 RETURN: 'return';
 

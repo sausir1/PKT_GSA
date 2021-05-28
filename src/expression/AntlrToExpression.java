@@ -5,6 +5,9 @@ import antlr.GsaGrammarParser.*;
 import operations.*;
 import org.antlr.v4.runtime.Token;
 import types.Number;
+
+import java.lang.reflect.Array;
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -70,6 +73,35 @@ public class AntlrToExpression extends GsaGrammarBaseVisitor<Expression> {
         this.semanticErrors = checker.getErrors();
         this.vars = checker.getVars();
         return id;
+    }
+
+    @Override
+    public Expression visitIntArrayDeclaration(IntArrayDeclarationContext ctx) {
+        Expression numbers = visit(ctx.getChild(6));
+        String id = ctx.ID().getText();
+        Types type = Types.INTARRAY;
+        vars.add(id);
+        return new intArrayDeclaration(numbers,id,type);
+    }
+
+    @Override
+    public Expression visitIntArray(IntArrayContext ctx) {
+        List<String> numbers = new ArrayList<>();
+        for(int i = 0; i<ctx.getChildCount();i +=2 ){
+            numbers.add(ctx.getChild(i).getText());
+        }
+        return new IntArray(numbers);
+    }
+
+    @Override
+    public Expression visitCallArrayMember(CallArrayMemberContext ctx) {
+        String id = ctx.getChild(0).getChild(0).getText();
+
+        if(vars.contains(id)) {
+            Expression e = visit(ctx.array_elem().expr());
+            return new ArrayMember(id,e );
+        }
+        return null;
     }
 
     @Override
@@ -270,6 +302,7 @@ public class AntlrToExpression extends GsaGrammarBaseVisitor<Expression> {
     @Override
     public Expression visitLocalStatements(LocalStatementsContext ctx) {
         List<Expression> expressions = new ArrayList<Expression>();
+
         for(int i = 0; i< ctx.getChildCount(); i++){
             Expression e = visit(ctx.getChild(i));
             expressions.add(e);

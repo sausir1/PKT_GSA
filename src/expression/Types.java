@@ -1,3 +1,3 @@
 package expression;
 
-public enum Types { STRING,INT,BOOL,CHAR,DEF}
+public enum Types { STRING,INT,BOOL,CHAR,DEF,INTARRAY}
