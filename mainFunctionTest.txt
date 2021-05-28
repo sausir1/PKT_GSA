@@ -4,5 +4,6 @@ def main(int arg1, string arg2)
     bool isTrue = true
     int j = 5
     int k = 2
-    j*k+i
+    int xs = j*k+i+2
+    xs
 }

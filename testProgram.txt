@@ -1,4 +1,6 @@
-int a = 4 + 5
+int a = 4
 int b = 2
 
 a = b + 3
+int k = a + b
+k

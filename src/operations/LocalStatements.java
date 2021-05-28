@@ -7,7 +7,7 @@ import java.util.List;
 public class LocalStatements extends Expression{
     List<Expression> expressions;
 
-    public List<Expression> getList(){
+    public List<Expression> getStatements(){
         return expressions;
     }
 

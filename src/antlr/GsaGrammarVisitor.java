@@ -1,4 +1,4 @@
-// Generated from D:/untitled/PKT_GSA\GsaGrammar.g4 by ANTLR 4.9.1
+// Generated from C:/Users/Owner/IdeaProjects/Antlr4GSA\GsaGrammar.g4 by ANTLR 4.9.1
 
 package antlr;
 
@@ -257,20 +257,6 @@ public interface GsaGrammarVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitLocalStatement(GsaGrammarParser.LocalStatementContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code HierarcyStatements}
-	 * labeled alternative in {@link GsaGrammarParser#blockStatements}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitHierarcyStatements(GsaGrammarParser.HierarcyStatementsContext ctx);
-	/**
-	 * Visit a parse tree produced by the {@code UnoStatement}
-	 * labeled alternative in {@link GsaGrammarParser#blockStatements}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitUnoStatement(GsaGrammarParser.UnoStatementContext ctx);
-	/**
 	 * Visit a parse tree produced by the {@code LocalStatements}
 	 * labeled alternative in {@link GsaGrammarParser#block}.
 	 * @param ctx the parse tree
@@ -285,33 +271,12 @@ public interface GsaGrammarVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitMethodArguments(GsaGrammarParser.MethodArgumentsContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code IntArg}
+	 * Visit a parse tree produced by the {@code Parameter}
 	 * labeled alternative in {@link GsaGrammarParser#methodArg}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitIntArg(GsaGrammarParser.IntArgContext ctx);
-	/**
-	 * Visit a parse tree produced by the {@code StringArg}
-	 * labeled alternative in {@link GsaGrammarParser#methodArg}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitStringArg(GsaGrammarParser.StringArgContext ctx);
-	/**
-	 * Visit a parse tree produced by the {@code CharArg}
-	 * labeled alternative in {@link GsaGrammarParser#methodArg}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitCharArg(GsaGrammarParser.CharArgContext ctx);
-	/**
-	 * Visit a parse tree produced by the {@code BoolArg}
-	 * labeled alternative in {@link GsaGrammarParser#methodArg}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitBoolArg(GsaGrammarParser.BoolArgContext ctx);
+	T visitParameter(GsaGrammarParser.ParameterContext ctx);
 	/**
 	 * Visit a parse tree produced by the {@code SingleArg}
 	 * labeled alternative in {@link GsaGrammarParser#args}.

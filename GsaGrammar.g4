@@ -54,16 +54,10 @@ iterationStatement : FOR PARANTESSES1 NUM TO NUM PARANTESSES2 CURLYBRACKET1 bloc
 
 blockStatement : (expr | decl | statement | methodInvocation)+     #LocalStatement
                 ;
-blockStatements: blockStatement                     #UnoStatement
-                | blockStatements blockStatement    #HierarcyStatements
-                ;
 
-block: CURLYBRACKET1 blockStatements? CURLYBRACKET2    #LocalStatements;
+block: CURLYBRACKET1 blockStatement* CURLYBRACKET2    #LocalStatements;
 methodArgs: PARANTESSES1 args? PARANTESSES2            #MethodArguments;
-methodArg: INT ID          #IntArg
-         | STRING ID       #StringArg
-         | CHAR_T ID       #CharArg
-         | BOOLEAN ID      #BoolArg
+methodArg: (INT | STRING | BOOL | CHAR) ID          #Parameter
          ;
 args: methodArg                         #SingleArg
     | (methodArg COMMA)+ methodArg      #MultipleArgs

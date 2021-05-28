@@ -1,4 +1,4 @@
-// Generated from D:/untitled/PKT_GSA\GsaGrammar.g4 by ANTLR 4.9.1
+// Generated from C:/Users/Owner/IdeaProjects/Antlr4GSA\GsaGrammar.g4 by ANTLR 4.9.1
 
 package antlr;
 

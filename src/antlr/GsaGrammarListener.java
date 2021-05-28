@@ -1,4 +1,4 @@
-// Generated from D:/untitled/PKT_GSA\GsaGrammar.g4 by ANTLR 4.9.1
+// Generated from C:/Users/Owner/IdeaProjects/Antlr4GSA\GsaGrammar.g4 by ANTLR 4.9.1
 
 package antlr;
 
@@ -428,30 +428,6 @@ public interface GsaGrammarListener extends ParseTreeListener {
 	 */
 	void exitLocalStatement(GsaGrammarParser.LocalStatementContext ctx);
 	/**
-	 * Enter a parse tree produced by the {@code HierarcyStatements}
-	 * labeled alternative in {@link GsaGrammarParser#blockStatements}.
-	 * @param ctx the parse tree
-	 */
-	void enterHierarcyStatements(GsaGrammarParser.HierarcyStatementsContext ctx);
-	/**
-	 * Exit a parse tree produced by the {@code HierarcyStatements}
-	 * labeled alternative in {@link GsaGrammarParser#blockStatements}.
-	 * @param ctx the parse tree
-	 */
-	void exitHierarcyStatements(GsaGrammarParser.HierarcyStatementsContext ctx);
-	/**
-	 * Enter a parse tree produced by the {@code UnoStatement}
-	 * labeled alternative in {@link GsaGrammarParser#blockStatements}.
-	 * @param ctx the parse tree
-	 */
-	void enterUnoStatement(GsaGrammarParser.UnoStatementContext ctx);
-	/**
-	 * Exit a parse tree produced by the {@code UnoStatement}
-	 * labeled alternative in {@link GsaGrammarParser#blockStatements}.
-	 * @param ctx the parse tree
-	 */
-	void exitUnoStatement(GsaGrammarParser.UnoStatementContext ctx);
-	/**
 	 * Enter a parse tree produced by the {@code LocalStatements}
 	 * labeled alternative in {@link GsaGrammarParser#block}.
 	 * @param ctx the parse tree
@@ -476,53 +452,17 @@ public interface GsaGrammarListener extends ParseTreeListener {
 	 */
 	void exitMethodArguments(GsaGrammarParser.MethodArgumentsContext ctx);
 	/**
-	 * Enter a parse tree produced by the {@code IntArg}
+	 * Enter a parse tree produced by the {@code Parameter}
 	 * labeled alternative in {@link GsaGrammarParser#methodArg}.
 	 * @param ctx the parse tree
 	 */
-	void enterIntArg(GsaGrammarParser.IntArgContext ctx);
+	void enterParameter(GsaGrammarParser.ParameterContext ctx);
 	/**
-	 * Exit a parse tree produced by the {@code IntArg}
+	 * Exit a parse tree produced by the {@code Parameter}
 	 * labeled alternative in {@link GsaGrammarParser#methodArg}.
 	 * @param ctx the parse tree
 	 */
-	void exitIntArg(GsaGrammarParser.IntArgContext ctx);
-	/**
-	 * Enter a parse tree produced by the {@code StringArg}
-	 * labeled alternative in {@link GsaGrammarParser#methodArg}.
-	 * @param ctx the parse tree
-	 */
-	void enterStringArg(GsaGrammarParser.StringArgContext ctx);
-	/**
-	 * Exit a parse tree produced by the {@code StringArg}
-	 * labeled alternative in {@link GsaGrammarParser#methodArg}.
-	 * @param ctx the parse tree
-	 */
-	void exitStringArg(GsaGrammarParser.StringArgContext ctx);
-	/**
-	 * Enter a parse tree produced by the {@code CharArg}
-	 * labeled alternative in {@link GsaGrammarParser#methodArg}.
-	 * @param ctx the parse tree
-	 */
-	void enterCharArg(GsaGrammarParser.CharArgContext ctx);
-	/**
-	 * Exit a parse tree produced by the {@code CharArg}
-	 * labeled alternative in {@link GsaGrammarParser#methodArg}.
-	 * @param ctx the parse tree
-	 */
-	void exitCharArg(GsaGrammarParser.CharArgContext ctx);
-	/**
-	 * Enter a parse tree produced by the {@code BoolArg}
-	 * labeled alternative in {@link GsaGrammarParser#methodArg}.
-	 * @param ctx the parse tree
-	 */
-	void enterBoolArg(GsaGrammarParser.BoolArgContext ctx);
-	/**
-	 * Exit a parse tree produced by the {@code BoolArg}
-	 * labeled alternative in {@link GsaGrammarParser#methodArg}.
-	 * @param ctx the parse tree
-	 */
-	void exitBoolArg(GsaGrammarParser.BoolArgContext ctx);
+	void exitParameter(GsaGrammarParser.ParameterContext ctx);
 	/**
 	 * Enter a parse tree produced by the {@code SingleArg}
 	 * labeled alternative in {@link GsaGrammarParser#args}.
