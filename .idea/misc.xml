@@ -6,7 +6,7 @@
         <PerGrammarGenerationSettings>
           <option name="fileName" value="$PROJECT_DIR$/GsaGrammar.g4" />
           <option name="autoGen" value="true" />
-          <option name="outputDir" value="C:\Users\Owner\IdeaProjects\Antlr4GSA\src\antlr" />
+          <option name="outputDir" value="D:\untitled\PKT_GSA\src\antlr" />
           <option name="libDir" value="" />
           <option name="encoding" value="" />
           <option name="pkg" value="" />

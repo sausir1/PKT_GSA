@@ -127,6 +127,10 @@ public class ExpressionProcessor extends Expression{
                 results.addAll(AnalyzeMethod(method));
                 results.add("===========================");
             }
+            if(e instanceof intArrayDeclaration){
+                intArrayDeclaration array = (intArrayDeclaration) e;
+                values.put(array.getID(),array.getExpression());
+            }
             if(e instanceof VariableDeclaration){
                 VariableDeclaration decl = (VariableDeclaration) e;
                 Expression valType = decl.val;
@@ -209,6 +213,12 @@ public class ExpressionProcessor extends Expression{
                 result = getResultOf(localValues.get(var.id), localValues);
             }
         }
+        if(e instanceof ArrayMember){
+            ArrayMember mem = (ArrayMember) e;
+            if(localValues.containsKey(mem.getId())){
+                result = getResultOfArray(localValues.get(mem.getId()),localValues,mem.getElement());
+            }
+        }
         else if(e instanceof Addition){
             Addition add = (Addition) e;
             int left = getResultOf(add.getLeft(), localValues);
@@ -242,6 +252,10 @@ public class ExpressionProcessor extends Expression{
         else if (e instanceof  ForTo){
             ForTo f = (ForTo) e;
             forTo(f, localValues);
+        }
+        else if (e instanceof IntArray){
+            IntArray arr = (IntArray) e;
+
         }
         return result;
     }
@@ -301,6 +315,15 @@ public class ExpressionProcessor extends Expression{
         return result;
     }
 
+    public int getResultOfArray(Expression e, Map<String, Expression> localValues,String id){
+        String results = "";
+        if(e instanceof IntArray){
+            IntArray  arr = (IntArray) e;
+            results = arr.getValue(Integer.parseInt(id));
+            return Integer.parseInt(results);
+        }
+        return 0;
+    }
     public void forTo(Expression expression,Map<String, Expression> localValues){
         if(expression instanceof ForTo){
             ForTo fr = (ForTo) expression;
@@ -310,4 +333,6 @@ public class ExpressionProcessor extends Expression{
             }
         }
     }
+
+
 }
