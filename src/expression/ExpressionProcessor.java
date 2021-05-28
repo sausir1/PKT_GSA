@@ -57,10 +57,13 @@ public class ExpressionProcessor extends Expression{
         {
 
             LocalStatements body = (LocalStatements) e.getBody();
-            MethodArguments argsExpression = (MethodArguments) e.getArguments();
-            List<Expression> arguments = getMethodArguments(argsExpression);
-            Map<String, Types> localValues = ArgumentsToMap(arguments);
-            LocalResults = getResultsOfMethod(localValues,body);
+            if(body != null)
+            {
+                MethodArguments argsExpression = (MethodArguments) e.getArguments();
+                List<Expression> arguments = getMethodArguments(argsExpression);
+                Map<String, Types> localValues = ArgumentsToMap(arguments);
+                LocalResults = getResultsOfMethod(localValues,body);
+            }
         }
         //Map<String, Expression> localValues
         return LocalResults;

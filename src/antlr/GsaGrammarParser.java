@@ -2498,6 +2498,17 @@ public class GsaGrammarParser extends Parser {
 	}
 
 	public static class MethodInvocationContext extends ParserRuleContext {
+		public MethodInvocationContext(ParserRuleContext parent, int invokingState) {
+			super(parent, invokingState);
+		}
+		@Override public int getRuleIndex() { return RULE_methodInvocation; }
+	 
+		public MethodInvocationContext() { }
+		public void copyFrom(MethodInvocationContext ctx) {
+			super.copyFrom(ctx);
+		}
+	}
+	public static class MethodCallContext extends MethodInvocationContext {
 		public TerminalNode ID() { return getToken(GsaGrammarParser.ID, 0); }
 		public TerminalNode PARANTESSES1() { return getToken(GsaGrammarParser.PARANTESSES1, 0); }
 		public TerminalNode PARANTESSES2() { return getToken(GsaGrammarParser.PARANTESSES2, 0); }
@@ -2507,21 +2518,18 @@ public class GsaGrammarParser extends Parser {
 		public ArgumentListContext argumentList(int i) {
 			return getRuleContext(ArgumentListContext.class,i);
 		}
-		public MethodInvocationContext(ParserRuleContext parent, int invokingState) {
-			super(parent, invokingState);
-		}
-		@Override public int getRuleIndex() { return RULE_methodInvocation; }
+		public MethodCallContext(MethodInvocationContext ctx) { copyFrom(ctx); }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof GsaGrammarListener ) ((GsaGrammarListener)listener).enterMethodInvocation(this);
+			if ( listener instanceof GsaGrammarListener ) ((GsaGrammarListener)listener).enterMethodCall(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof GsaGrammarListener ) ((GsaGrammarListener)listener).exitMethodInvocation(this);
+			if ( listener instanceof GsaGrammarListener ) ((GsaGrammarListener)listener).exitMethodCall(this);
 		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof GsaGrammarVisitor ) return ((GsaGrammarVisitor<? extends T>)visitor).visitMethodInvocation(this);
+			if ( visitor instanceof GsaGrammarVisitor ) return ((GsaGrammarVisitor<? extends T>)visitor).visitMethodCall(this);
 			else return visitor.visitChildren(this);
 		}
 	}
@@ -2531,6 +2539,7 @@ public class GsaGrammarParser extends Parser {
 		enterRule(_localctx, 40, RULE_methodInvocation);
 		int _la;
 		try {
+			_localctx = new MethodCallContext(_localctx);
 			enterOuterAlt(_localctx, 1);
 			{
 			setState(251);

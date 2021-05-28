@@ -72,7 +72,7 @@ method: methodArgs block                #MethodDefinition;
 
 returnStatement: RETURN expr        #ReturnExpression
                ;
-methodInvocation: ID PARANTESSES1 argumentList* PARANTESSES2;
+methodInvocation: ID PARANTESSES1 argumentList* PARANTESSES2  #MethodCall;
 
 
 /* TOKENAI */

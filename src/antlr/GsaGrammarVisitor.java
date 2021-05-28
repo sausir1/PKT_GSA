@@ -326,9 +326,10 @@ public interface GsaGrammarVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitReturnExpression(GsaGrammarParser.ReturnExpressionContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link GsaGrammarParser#methodInvocation}.
+	 * Visit a parse tree produced by the {@code MethodCall}
+	 * labeled alternative in {@link GsaGrammarParser#methodInvocation}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitMethodInvocation(GsaGrammarParser.MethodInvocationContext ctx);
+	T visitMethodCall(GsaGrammarParser.MethodCallContext ctx);
 }

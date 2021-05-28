@@ -318,6 +318,20 @@ public class AntlrToExpression extends GsaGrammarBaseVisitor<Expression> {
         return new Method(name,arguments,body);
     }
 
+    @Override
+    public Expression visitMethodCall(MethodCallContext ctx) {
+        String method = ctx.getChild(0).getText();
+        List<Expression> givenArguments = new ArrayList<>();
+        int children = ctx.getChildCount();
+        if(children >3)
+        {
+            for(int i =0; i< ctx.getChild(2).getChildCount(); i++)
+            {
+                givenArguments.add(visit(ctx.getChild(2).getChild(i)));
+            }
+        }
+        return new MethodCall(givenArguments,method);
+    }
 
     @Override
     public Expression visitLocalStatement(LocalStatementContext ctx) {

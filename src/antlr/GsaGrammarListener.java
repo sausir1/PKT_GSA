@@ -546,13 +546,15 @@ public interface GsaGrammarListener extends ParseTreeListener {
 	 */
 	void exitReturnExpression(GsaGrammarParser.ReturnExpressionContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link GsaGrammarParser#methodInvocation}.
+	 * Enter a parse tree produced by the {@code MethodCall}
+	 * labeled alternative in {@link GsaGrammarParser#methodInvocation}.
 	 * @param ctx the parse tree
 	 */
-	void enterMethodInvocation(GsaGrammarParser.MethodInvocationContext ctx);
+	void enterMethodCall(GsaGrammarParser.MethodCallContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link GsaGrammarParser#methodInvocation}.
+	 * Exit a parse tree produced by the {@code MethodCall}
+	 * labeled alternative in {@link GsaGrammarParser#methodInvocation}.
 	 * @param ctx the parse tree
 	 */
-	void exitMethodInvocation(GsaGrammarParser.MethodInvocationContext ctx);
+	void exitMethodCall(GsaGrammarParser.MethodCallContext ctx);
 }

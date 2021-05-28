@@ -558,13 +558,13 @@ public class GsaGrammarBaseListener implements GsaGrammarListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterMethodInvocation(GsaGrammarParser.MethodInvocationContext ctx) { }
+	@Override public void enterMethodCall(GsaGrammarParser.MethodCallContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitMethodInvocation(GsaGrammarParser.MethodInvocationContext ctx) { }
+	@Override public void exitMethodCall(GsaGrammarParser.MethodCallContext ctx) { }
 
 	/**
 	 * {@inheritDoc}

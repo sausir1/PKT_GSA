@@ -334,5 +334,5 @@ public class GsaGrammarBaseVisitor<T> extends AbstractParseTreeVisitor<T> implem
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitMethodInvocation(GsaGrammarParser.MethodInvocationContext ctx) { return visitChildren(ctx); }
+	@Override public T visitMethodCall(GsaGrammarParser.MethodCallContext ctx) { return visitChildren(ctx); }
 }

@@ -1,9 +1,14 @@
-def main(int arg1, string arg2)
+def start()
 {
-    int i = 0
-    bool isTrue = true
-    int j = 5
-    int k = 2
-    int xs = j*k+i+2
-    xs
+ int i = 100
+ int l = 200
+ int k = l + i
+ k
+ main(i)
+}
+def main(int l){
+    int i = 400
+    int r = 200
+    int x = i + r
+    x
 }
