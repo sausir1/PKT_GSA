@@ -15,12 +15,13 @@ import java.util.List;
 
 public class AntlrToExpression extends GsaGrammarBaseVisitor<Expression> {
 
-    public ExpressionProcessor ep = new ExpressionProcessor();
+    public ExpressionProcessor ep;
 
     public AntlrToExpression(List<String> semanticErrors){
         vars = new ArrayList<>();
         this.semanticErrors = semanticErrors;
          expressionsList = new ArrayList<>();
+         ep = new ExpressionProcessor(expressionsList);
 
     }
 
@@ -109,11 +110,10 @@ public class AntlrToExpression extends GsaGrammarBaseVisitor<Expression> {
 
     @Override
     public Expression visitIntDeclaration(IntDeclarationContext ctx) {
-        //String id = checkIfExists(ctx);
-        String id = ctx.getChild(1).getText();
-        vars.add(id);
+        String id = checkIfExists(ctx);
+        //String id = ctx.getChild(1).getText();
+        //vars.add(id);
         String type = ctx.getChild(0).getText();
-        ExpressionProcessor ep = new ExpressionProcessor(expressionsList);
         Expression val = visit(ctx.getChild(3));
         int rez = ep.getResultOf(val);
         String value = String.valueOf(rez);
@@ -302,10 +302,9 @@ public class AntlrToExpression extends GsaGrammarBaseVisitor<Expression> {
             semanticErrors.add("ERROR ASSIGNING A VARIABLE");
         }
         Expression value = visit(ctx.getChild(2));
-        ExpressionProcessor ep = new ExpressionProcessor(expressionsList);
         List<String> val = ep.getResults();
         String ats = String.valueOf(val);
-        return new Assigment(id);
+        return new Assigment(ats, 4);
     }
 
     @Override
@@ -321,6 +320,23 @@ public class AntlrToExpression extends GsaGrammarBaseVisitor<Expression> {
     }
 
     @Override
+    public Expression visitUnoStatement(UnoStatementContext ctx) {
+        List<Expression> expressions = new ArrayList<Expression>();
+        for(int i = 0; i< ctx.getChildCount(); i++){
+            Expression e = visit(ctx.getChild(i));
+            expressions.add(e);
+        }
+        return new UnoStatement(expressions);
+    }
+
+    @Override
+    public Expression visitMethodInvocation(MethodInvocationContext ctx) {
+        Expression e = visit(ctx.getChild(0));
+
+        return new MethodInvocation(e);
+    }
+
+    @Override
     public Expression visitMethodDefinition(MethodDefinitionContext ctx) {
         Expression e = visit(ctx.getChild(0));
         return super.visitMethodDefinition(ctx);
@@ -330,6 +346,8 @@ public class AntlrToExpression extends GsaGrammarBaseVisitor<Expression> {
     public Expression visitMethodArguments(MethodArgumentsContext ctx) {
         if(ctx.getChildCount() > 2){
             Expression e = visit(ctx.getChild(1));
+        }else{
+            Expression e = visit(ctx.getParent().getChild(1));
         }
         return super.visitMethodArguments(ctx);
     }
