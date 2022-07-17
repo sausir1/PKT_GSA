@@ -16,7 +16,7 @@ public class SyntaxErrorListener extends BaseErrorListener {
 
         List<String> SyntaxErrors = ((Parser)recognizer).getRuleInvocationStack();
         Collections.reverse(SyntaxErrors);
-        System.err.println("Syntax error occured!");
+        System.err.println("Syntax error occurred!");
         System.err.println("Token " + "\""+((Token) offendingSymbol).getText() + "\""+
                 " (line"+line+", column " + (charPositionInLine + 1) + " )" + ":" + msg);
         System.err.println("Rule Stack: "+ SyntaxErrors);

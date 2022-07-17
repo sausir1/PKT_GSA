@@ -1,5 +1,6 @@
 int a = 3
 int b = 2
+int a = 156
 a + b
 a - b
 a * b
@@ -8,19 +9,7 @@ a < b
 a > b
 a == b
 a <= b
-a <= b
-int arr[] = {9,8,7,6,5,4,3,2,1}
-arr[0]
-arr[1]
-arr[2]
 
-for(1 to 3){
-    a
-}
-if(a > b){
-
-}else{
-}
 
 
 

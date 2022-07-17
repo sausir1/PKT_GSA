@@ -18,6 +18,10 @@ public class ArrayMember extends Expression {
         return this.e.toString();
     }
 
+    public Expression getRawElement () {
+        return this.e;
+    }
+
     @Override
     public String toString() {
         return this.id + "["+this.e+"]";

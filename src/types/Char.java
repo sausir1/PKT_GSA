@@ -6,7 +6,7 @@ import expression.Expression;
 public class Char extends Expression {
     char c;
 
-    public int getChar() {
+    public char getChar() {
         return this.c;
     }
 

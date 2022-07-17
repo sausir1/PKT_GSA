@@ -3,14 +3,18 @@ package types;
 import expression.Expression;
 
 public class String extends Expression {
-    String string;
+    java.lang.String string;
 
-    public String getString() {
+    public String(java.lang.String string) {
+        this.string = string;
+    }
+
+    public java.lang.String getString() {
         return this.string;
     }
 
-    public String(String str){
-        this.string = str;
+    public java.lang.String toString() {
+        return this.string;
     }
 
 }

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="FindBugs-IDEA">
+    <plugins>
+      <plugin id="edu.umd.cs.findbugs.plugins.noUpdateChecks" enabled="true">
+        <url>file:/$USER_HOME$/.p2/pool/plugins/edu.umd.cs.findbugs.plugin.eclipse_3.0.1.20150306-5afe4d1/plugin/noUpdateChecks.jar</url>
+      </plugin>
+      <plugin id="plugin0" enabled="true">
+        <url>file:/$USER_HOME$/.p2/pool/plugins/edu.umd.cs.findbugs.plugin.eclipse_3.0.1.20150306-5afe4d1/plugin/upperCaseMethods.jar</url>
+      </plugin>
+      <plugin id="plugin24" enabled="true">
+        <url>file:/$USER_HOME$/.p2/pool/plugins/edu.umd.cs.findbugs.plugin.eclipse_3.0.1.20150306-5afe4d1/plugin/privateFieldsDetectorInterface.jar</url>
+      </plugin>
+    </plugins>
+  </component>
+</project>

@@ -1,7 +1,7 @@
 grammar GsaGrammar;
 
 @header{
-package antlr;
+package antlr2.antlr;
 }
 
 prog : (decl | expr | statement | methodInvocation)+ EOF # Program

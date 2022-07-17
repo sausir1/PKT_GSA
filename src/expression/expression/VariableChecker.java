@@ -3,10 +3,9 @@ package expression;
 import antlr.GsaGrammarParser.*;
 import org.antlr.v4.runtime.Token;
 
-import java.util.ArrayList;
 import java.util.List;
 
-public class VariableChecker implements IVariableChecker  {
+public class VariableChecker implements IVariableChecker {
 
     private List<String> vars;
     private List<String> semanticErrors;
@@ -61,7 +60,7 @@ public class VariableChecker implements IVariableChecker  {
         int col = idToken.getCharPositionInLine() + 1;
         String id = ctx.getChild(1).getText();
         if(vars.contains(id)){
-            semanticErrors.add("Error: variable with name " + id + " already declared in ("+line+","+col+")");
+            semanticErrors.add("Error: method can't be declared, variable with name " + id + " already declared in ("+line+","+col+")");
         } else{
             vars.add(id);
         }

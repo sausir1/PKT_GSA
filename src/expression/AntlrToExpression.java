@@ -3,11 +3,28 @@ package expression;
 import antlr.GsaGrammarBaseVisitor;
 import antlr.GsaGrammarParser.*;
 import operations.*;
+import operations.ArrayMember;
+import operations.ConditionBlock;
+import operations.ConditionBody;
+import operations.Division;
+import operations.Equals;
+import operations.EqualsOrGreaterThan;
+import operations.ForTo;
+import operations.GreaterThan;
+import operations.IfStatement;
+import operations.IntArray;
+import operations.Iteration;
+import operations.LessThan;
+import operations.LocalStatements;
+import operations.Method;
+import operations.MethodArguments;
+import operations.MethodCall;
+import operations.MethodParameter;
+import operations.Multiplication;
+import operations.intArrayDeclaration;
 import org.antlr.v4.runtime.Token;
 import types.Number;
 
-import java.lang.reflect.Array;
-import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -35,6 +52,13 @@ public class AntlrToExpression extends GsaGrammarBaseVisitor<Expression> {
     //Klaidoms talpinti
     private List<String> semanticErrors; //pakartotiniams paskelbimams, nepasklebtu kintamuju naudojimas
 
+
+    public List<String> getVariables () {
+        return  this.vars;
+    }
+    public List<String> getErrors () {
+        return  this.semanticErrors;
+    }
 
     private String checkIfExists(DeclContext ctx)
     {
@@ -109,7 +133,7 @@ public class AntlrToExpression extends GsaGrammarBaseVisitor<Expression> {
         String id = checkIfExists(ctx);
         Expression val = visit(ctx.getChild(3));
         vars.add(id);
-        return new VariableDeclaration(id, Types.STRING,val);
+        return new VariableDeclaration(id, Types.STRING, val);
     }
 
     @Override
@@ -139,6 +163,7 @@ public class AntlrToExpression extends GsaGrammarBaseVisitor<Expression> {
     @Override
     public Expression visitIntDeclaration(IntDeclarationContext ctx) {
         String id = ctx.getChild(1).getText();
+        this.checkIfExists(ctx);
         vars.add(id);
         Expression val = visit(ctx.getChild(3));
         return new VariableDeclaration(id, Types.INT,val);
@@ -171,7 +196,7 @@ public class AntlrToExpression extends GsaGrammarBaseVisitor<Expression> {
         int line = idToken.getLine();
         int col = idToken.getCharPositionInLine() + 1;
         String id = ctx.getChild(0).getText();
-        if(!vars.contains(id)){
+        if(!this.getVariables().contains(id)){
             semanticErrors.add("Error. variable " +id+" is not declared ("+line+","+col+")");
         }
         return new Variable(id);
@@ -324,7 +349,7 @@ public class AntlrToExpression extends GsaGrammarBaseVisitor<Expression> {
     public Expression visitAssignment(AssignmentContext ctx) {
         String id = ctx.getChild(0).getText();
         Expression equalsTo = visit(ctx.getChild(2));
-        return new Assigment(id,equalsTo);
+        return new Assignment(id,equalsTo);
     }
 
     @Override
@@ -401,7 +426,8 @@ public class AntlrToExpression extends GsaGrammarBaseVisitor<Expression> {
     @Override
     public Expression visitParameter(ParameterContext ctx) {
         String id = ctx.getChild(1).getText();
-        Types type = getType(ctx.getChild(0).getText());
+        String text = ctx.getChild(0).getText();
+        Types type = getType(text);
         return new MethodParameter(id,type);
     }
 

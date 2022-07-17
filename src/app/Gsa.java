@@ -24,7 +24,7 @@ public class Gsa {
             ParseTree antlrAST = parser.prog();
 
             if(SyntaxErrorListener.hasErrors){
-
+                System.err.println("Syntax has errors!");
             } else {
                 AntlrToProgram progVisitor = new AntlrToProgram();
                 Program prog = progVisitor.visit(antlrAST);

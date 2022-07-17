@@ -1,8 +1,6 @@
 package expression;
 
 import operations.*;
-import types.Bool;
-import types.Char;
 import types.Number;
 
 import java.util.*;
@@ -243,9 +241,9 @@ public class ExpressionProcessor extends Expression{
             int right = getResultOf(subt.getRight(), localValues);
             result = left - right;
         }
-        else if(e instanceof Assigment)
+        else if(e instanceof Assignment)
         {
-            Assigment as = (Assigment) e;
+            Assignment as = (Assignment) e;
             int right = getResultOf((as.getRight()), localValues);
             result = right;
         }
@@ -255,6 +253,7 @@ public class ExpressionProcessor extends Expression{
         }
         else if (e instanceof IntArray){
             IntArray arr = (IntArray) e;
+            result = 5;
 
         }
         return result;
@@ -266,7 +265,7 @@ public class ExpressionProcessor extends Expression{
             Equals eq = (Equals) e;
             int left = getResultOf(eq.getLeft(), localValues);
             int right = getResultOf(eq.getRight(), localValues);
-            if(left == right){
+            if (left == right){
                 result = true;
             }else{
                 result = false;
